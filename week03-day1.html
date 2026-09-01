@@ -56,7 +56,7 @@
   <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"If it's the top result and it sounds credible, it's good enough. 'Vetting sources' is mostly academic snobbery."</h2>
+    <h2 class="q">"Real evidence comes from published studies and official data. One person's lived experience is just an anecdote."</h2>
     <textarea data-k="w3-debate" aria-label="board"></textarea>
   </section>
 
@@ -71,9 +71,16 @@
   <!-- 3 · SCENE 1 + breadcrumb throughline -->
   <section class="panel">
     <div class="scene">
-      <figure>
-        <img src="images/week03-day1-library.jpg" alt="Rows of stacked bookshelves in a public library">
-        <figcaption>Public library stacks (Wikimedia Commons, CC0).</figcaption>
+      <figure data-note="optional: swap in a real screenshot of a paper's References page">
+        <div role="img" aria-label="A References page from a paper listing several citations; two are highlighted as leads to follow" style="background:#f7f4ee;color:#23262c;border:1px solid var(--line);border-radius:12px;padding:22px 26px;box-shadow:0 12px 34px rgba(0,0,0,.5);font:15px/1.5 Georgia,'Iowan Old Style',serif">
+          <div style="font-weight:700;font-size:1.15em;border-bottom:1px solid #d9d3c5;padding-bottom:8px;margin-bottom:12px">References</div>
+          <p style="padding-left:1.7em;text-indent:-1.7em;margin:.5em 0">Delmas, M. A., &amp; Burbano, V. C. (2011). The drivers of greenwashing. <i>California Management Review, 54</i>(1), 64&ndash;87.</p>
+          <p style="padding-left:1.7em;text-indent:-1.7em;margin:.5em 0;background:#fbeeca;border-radius:5px">Horne, R. E. (2009). Limits to labels: The role of eco-labels in assessing product sustainability. <i>International Journal of Consumer Studies, 33</i>(2), 175&ndash;182. <span style="font-family:system-ui;font-size:.8em;color:#946b12;white-space:nowrap">&larr; a lead worth chasing</span></p>
+          <p style="padding-left:1.7em;text-indent:-1.7em;margin:.5em 0">Parguel, B., Beno&icirc;t-Moreau, F., &amp; Larceneux, F. (2011). How sustainability ratings deter greenwashing. <i>Journal of Business Ethics, 102</i>(1), 15&ndash;28.</p>
+          <p style="padding-left:1.7em;text-indent:-1.7em;margin:.5em 0;background:#fbeeca;border-radius:5px">Th&oslash;gersen, J. (2010). Country differences in sustainable consumption: The case of organic food. <i>Journal of Macromarketing, 30</i>(2), 171&ndash;185. <span style="font-family:system-ui;font-size:.8em;color:#946b12;white-space:nowrap">&larr; and this one</span></p>
+          <p style="padding-left:1.7em;text-indent:-1.7em;margin:.5em 0">U.S. Federal Trade Commission. (2012). <i>Guides for the Use of Environmental Marketing Claims</i> (Green Guides).</p>
+        </div>
+        <figcaption>A paper's <b>References</b> page. Every entry is a source you can go read, mine the list and it hands you the next&nbsp;five.</figcaption>
       </figure>
       <div class="board">
         <b>Why we cite:</b> to leave breadcrumbs.
@@ -87,45 +94,47 @@
   <section class="panel">
     <div class="kick">Where to actually look</div>
     <div class="defs">
-      <div class="def"><h3>Belk Library databases</h3><p>Full text of peer-reviewed work you can't reach from the open web.</p></div>
-      <div class="def"><h3>Google Scholar</h3><p>Searches scholarship, not the open web. Free, and it shows who cited whom.</p></div>
-      <div class="def"><h3>AI tools that show sources</h3><p>Perplexity searches the live web with links; Elicit and Consensus surface real papers.</p></div>
+      <div class="def"><h3><a href="https://library.appstate.edu/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline">Belk Library databases</a></h3><p>Full text of peer-reviewed work you can't reach from the open web.</p></div>
+      <div class="def"><h3><a href="https://scholar.google.com/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline">Google Scholar</a></h3><p>Searches scholarship, not the open web. Free, and it shows who cited whom.</p></div>
+      <div class="def"><h3>AI tools that show sources</h3><p><a href="https://www.perplexity.ai/" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline">Perplexity</a> searches the live web and cites its links. <b>Elicit</b> finds and summarizes scientific papers for a research question. <b>Consensus</b> searches peer-reviewed studies and tells you what the research actually concludes.</p></div>
       <div class="def"><h3>Mine the bibliography</h3><p>Open a good source, read its reference list, chase the ones that fit.</p></div>
     </div>
-    <div class="board"><b>The caveat:</b> AI invents sources that look real. Never cite anything you haven't opened and read.</div>
+    <div class="board"><b>The caveat:</b> AI invents sources that look real. <b>Never</b> cite anything you haven't opened and read.</div>
   </section>
 
   <!-- 5 · SIFT -->
   <section class="panel">
     <div class="kick">How to vet what you find · SIFT</div>
     <div class="defs">
-      <div class="def"><h3>Stop</h3><p>Before you share or cite, pause. Do you even know what this is?</p></div>
-      <div class="def"><h3>Investigate the source</h3><p>Who made this, and why? Leave the page to find out.</p></div>
-      <div class="def"><h3>Find better coverage</h3><p>Look for a stronger source on the same claim.</p></div>
-      <div class="def"><h3>Trace the claim</h3><p>Follow it back to where it started. Quotes, data, the original.</p></div>
+      <div class="def"><h3>Stop</h3><p>Before you share or cite, pause. Do you even know what this is? <b>e.g.,</b> the top hit for "are eco-labels honest" is a glossy page from a labeling trade group, don't trust the ranking.</p></div>
+      <div class="def"><h3>Investigate the source</h3><p>Who made this, and why? Leave the page to find out. <b>e.g.,</b> the "Center for Food Integrity" turns out to be an industry PR group, look them up before you read a word.</p></div>
+      <div class="def"><h3>Find better coverage</h3><p>Look for a stronger source on the same claim. <b>e.g.,</b> instead of one blog saying "natural means nothing," pull a peer-reviewed study on how shoppers read the word.</p></div>
+      <div class="def"><h3>Trace the claim</h3><p>Follow it back to where it started. <b>e.g.,</b> a headline says "73% of shoppers are fooled", you click through and the actual study says 31%.</p></div>
     </div>
   </section>
 
-  <!-- 6 · LENS question -->
+  <!-- 6+7 · WHOSE SOURCES COUNT + hard triage (combined) -->
   <section class="panel">
-    <h2 class="q">Whose sources get treated as authoritative, and whose get left out?</h2>
-    <p class="sub">Don't ask "does this look legit?" Ask "who made this, and why?"</p>
-    <textarea data-k="w3d1-b2" aria-label="board"></textarea>
+    <div class="kick">Whose sources count? &middot; Trust it, depends, or skip</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Which of these do you trust, and why?</h2>
+    <p class="sub">Don't ask "does it look legit?" Ask "who made this, and why?" Not one of these is as simple as it looks, run each through SIFT.</p>
+    <div class="defs">
+      <div class="def"><h3>1</h3><p>A <b>peer-reviewed study</b> concluding "natural" labels don't mislead, funded by an egg-producers' association.</p></div>
+      <div class="def"><h3>2</h3><p>A polished <b>.org site</b>, the "Center for Food Integrity," that turns out to be an industry PR group.</p></div>
+      <div class="def"><h3>3</h3><p>A plain, ad-cluttered <b>blog</b> that cites six real studies and is written by a food scientist.</p></div>
+      <div class="def"><h3>4</h3><p>An <b>FDA page</b> defining "healthy" on packaging, last updated in 2016.</p></div>
+      <div class="def"><h3>5</h3><p>A <b>news headline</b>, "73% of shoppers fooled by green labels", but the study it links says 31%.</p></div>
+      <div class="def"><h3>6</h3><p>A <b>Perplexity answer</b> with five citations, two of which vanish when you click them.</p></div>
+    </div>
+    <textarea data-k="w3d1-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 7 · SCENE 2 + source triage -->
+  <!-- 7b · SOURCE TRIAGE (do it live) -->
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week03-day1-market.jpg" alt="Stalls of fresh produce at an outdoor farmers market">
-        <figcaption>Penticton Farmers Market, British Columbia (Wikimedia Commons, CC BY-SA 2.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Trust it, depends, or skip it?</h2>
-        <p class="sub">Six sources on the food-label question: a peer-reviewed study, a trade-group page, a news article, an anonymous blog, an FDA page, an AI answer. Be ready to say why with SIFT.</p>
-        <textarea data-k="w3d1-b3" aria-label="board"></textarea>
-      </div>
-    </div>
+    <div class="kick" style="color:var(--gold)">Do it yourself &middot; Source Triage</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Now everyone sorts a fresh six.</h2>
+    <p class="sub">Open the Source Triage tool. Call each source trust, depends, or skip on your own, then reveal the verdicts and we argue the close ones as a class.</p>
+    <p class="sub"><a href="https://drsarahlong.github.io/ENG_3090-/source-triage.html" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline">drsarahlong.github.io/ENG_3090-/source-triage.html</a></p>
   </section>
 
   <!-- 8 · START ENTRY 3 -->
