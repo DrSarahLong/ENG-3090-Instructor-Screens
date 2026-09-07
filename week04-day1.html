@@ -31,6 +31,30 @@
   .def{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px; padding:20px 24px}
   .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent)}
   .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem)}
+  .srcs{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:8px 0 24px}
+  @media (max-width:760px){ .srcs{grid-template-columns:1fr} }
+  .src{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:12px; padding:18px 22px}
+  .src .who{display:block; color:var(--gold); font-weight:700; font-size:clamp(1rem,1.5vw,1.2rem); margin-bottom:8px}
+  .src p{margin:0; color:var(--ink); font-size:clamp(1.05rem,1.6vw,1.3rem); line-height:1.45}
+  .slist{display:grid; gap:12px; margin:8px 0 12px}
+  .slist .s{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:10px; padding:12px 16px 12px 46px; position:relative; font-size:clamp(1rem,1.55vw,1.28rem); line-height:1.42}
+  .slist .s::before{counter-increment:s; content:"S" counter(s); position:absolute; left:14px; top:12px; color:var(--gold); font-weight:800; font-family:Georgia,serif}
+  .slist{counter-reset:s}
+  .slist .s b{color:var(--accent2)}
+  .worknet{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:8px 0}
+  @media (max-width:760px){ .worknet{grid-template-columns:1fr} }
+  .cluster{background:var(--panel); border:1px solid var(--line); border-top:4px solid var(--accent2); border-radius:12px; padding:16px 20px}
+  .cluster h4{margin:0 0 10px; color:var(--accent2); font-size:clamp(1.15rem,1.9vw,1.5rem); font-family:Georgia,serif}
+  .cluster ul{margin:0; padding-left:1.1rem} .cluster li{margin:.3rem 0; color:var(--ink); font-size:clamp(1rem,1.5vw,1.22rem)}
+  .wn-cap{grid-column:1/-1; margin:4px 0 0; color:var(--soft); font-size:clamp(1.05rem,1.6vw,1.3rem); text-align:center}
+  .gap-node{grid-column:1/-1; border:2px dashed var(--gold); border-radius:12px; padding:14px 20px; color:var(--gold); font-size:clamp(1.05rem,1.6vw,1.3rem); font-weight:600}
+  .exnum{font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:var(--soft); margin:22px 0 4px}
+  .wex{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 18px; margin:9px 0}
+  .wex .tag{display:inline-block; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; font-weight:800; padding:3px 11px; border-radius:999px; margin-bottom:8px}
+  .wex .tag.list{background:#3a2a2e; color:#c6a9ae}
+  .wex .tag.conv{background:#26331f; color:#9ec6a6}
+  .wex .tag.gap{background:#3a2e18; color:#e8b567}
+  .wex p{margin:0; font-size:clamp(1.1rem,1.7vw,1.4rem); line-height:1.5; color:var(--ink)}
   .board{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:24px 28px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5}
   .board .big{font-family:Georgia,serif; font-size:1.35em; color:var(--accent2); display:block; margin:14px 0}
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.92em}
@@ -53,70 +77,141 @@
     <div class="idea">Today the sources start talking to each other.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
+  <!-- OPENER EXERCISE · FOUR EXPERTS WHO DISAGREE -->
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"Summarizing what five sources each say IS a literature review. Making them 'talk to each other' is just busywork professors invented."</h2>
+    <div class="kick" style="color:var(--gold)">Start here</div>
+    <h2 class="q">Buying food the "right" way shouldn't be this complicated. But ask four different experts and you'll get four completely different answers.</h2>
+    <p class="sub">Every one of them is credible, and they still don't agree. So which do you believe? That's the same roadblock you'll hit as soon as you start working through your own sources.</p>
+    <div class="srcs">
+      <div class="src"><span class="who">The climate scientist · Poore &amp; Nemecek, 2018</span><p>"Where your food comes from barely matters. We tracked 38,000 farms: transport is a sliver of food's footprint. What you eat dwarfs how far it traveled. 'Buying local' is mostly a feel-good move."</p></div>
+      <div class="src"><span class="who">The local-food economist</span><p>"Local was never about carbon. A dollar spent with a nearby farm stays in your town, keeps small farms alive, and cuts the waste built into long supply chains. Food miles miss the whole point."</p></div>
+      <div class="src"><span class="who">The organic researcher · Seufert et&nbsp;al., 2012</span><p>"Organic drops the synthetic pesticides and fertilizer, but it yields about 20% less per acre, so it needs more land for the same food. 'Organic' is not automatically greener."</p></div>
+      <div class="src"><span class="who">The regenerative farmer</span><p>"Forget the labels. What heals the planet is how you treat the soil, cover crops, rotation, roots in the ground year-round. Regenerative land pulls carbon down, certified or not."</p></div>
+    </div>
+    <p class="sub">Which would you follow, and what is each of the others getting right?</p>
     <textarea data-k="w4-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE 1 -->
+  <!-- OPENER REVEAL · name the move (ask -> name) -->
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week04-day1-pile.jpg" alt="A long grocery aisle stacked with cartons of milk">
-        <figcaption>A shelf full of products, all making claims (Wikimedia Commons, CC BY-SA 3.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">Five vetted sources on your desk. What do they say TOGETHER?</h2>
-        <p class="sub">A stack of summaries isn't a lit review yet.</p>
-        <textarea data-k="w4-b1" aria-label="board"></textarea>
-      </div>
+    <div class="kick" style="color:var(--gold)">So which one is right?</div>
+    <h2 class="q">That's the wrong question.</h2>
+    <div class="board">
+      You could argue this the whole class and never settle it. None of them is simply wrong. So instead of crowning one, listen to them together: where they <b>agree</b> (all four want food that doesn't wreck the planet) and where they <b>collide</b> (local vs. diet vs. yield vs. soil).
+      <span class="big">That's synthesis, and it's most of what a literature review is doing. Summarizing each source one at a time is the easy part. The work is figuring out what they say together.</span>
+      <span class="also">So, last question: what did all four of them leave out?</span>
     </div>
   </section>
 
-  <!-- 3 · NAME IT -->
+
+  <!-- 2 · THE FIVE SOURCES + GROUP THEM (one screen, so the sources stay visible) -->
   <section class="panel">
-    <div class="defs">
-      <div class="def"><h3>Synthesis</h3><p>Reading your sources as one conversation: where they agree, where they clash, and what nobody has asked yet.</p></div>
-      <div class="def"><h3>WorkNet</h3><p>A quick map that groups sources by connection into two or three themes, so you can see the conversation instead of a list. (From the open book <em>Try This</em>.)</p></div>
-      <div class="def"><h3>The gap</h3><p>The unanswered question your sources leave open. Often a missing voice. That gap is the reason your whole study exists.</p></div>
+    <div class="kick">Five sources on the desk</div>
+    <h2 class="q" style="font-size:clamp(1.4rem,2.9vw,2.1rem)">Five real sources on one question: do eco-labels tell shoppers the truth?</h2>
+    <div class="slist">
+      <div class="s"><b>Nielsen, 2018.</b> Shoppers say they'll pay more for "natural," "organic," and "sustainable," and those products outsell conventional ones.</div>
+      <div class="s"><b>Consumer Reports, 2016.</b> In a national survey, most shoppers thought "natural" meant no pesticides and no GMOs. It legally guarantees neither.</div>
+      <div class="s"><b>FDA.</b> There is no formal federal definition of "natural" for food; the word says nothing about how the food was grown.</div>
+      <div class="s"><b>USDA.</b> "Organic" is federally certified and inspected, but the rules cover farm inputs like pesticides and synthetic fertilizer, not carbon or water use.</div>
+      <div class="s"><b>Dumas, 2021.</b> Eco-labels have multiplied so fast that shoppers can't tell a rigorous seal from a marketing badge.</div>
     </div>
-    <h2 class="q">Group your five into two or three themes. What connects them?</h2>
-    <textarea data-k="w4-b2" aria-label="board"></textarea>
+    <p class="sub" style="margin:6px 0 10px"><b style="color:var(--gold)">Do this together:</b> group these five into two or three themes. What connects them? Call them out, I'll map them.</p>
+    <textarea data-k="w4-group" aria-label="board" style="min-height:20vh"></textarea>
   </section>
 
-  <!-- 4 · LIST vs CONVERSATION (with the missing voice) -->
+  <!-- 4 · REVEAL: the WorkNet (hub-and-spoke, Mueller-style) -->
+  <section class="panel">
+    <div class="kick">The WorkNet &middot; how these five connect</div>
+    <figure style="margin:0">
+      <svg viewBox="0 0 1100 600" width="100%" role="img" aria-label="A worknet: the research question at the center, five sources radiating out in two clusters, and a dashed branch to an empty node marking the gap." style="max-height:62vh; display:block; margin:0 auto">
+        <!-- spokes: hub to each source -->
+        <line x1="550" y1="300" x2="165" y2="129" stroke="#6b4f55" stroke-width="2"/>
+        <line x1="550" y1="300" x2="165" y2="339" stroke="#6b4f55" stroke-width="2"/>
+        <line x1="550" y1="300" x2="935" y2="105" stroke="#6b4f55" stroke-width="2"/>
+        <line x1="550" y1="300" x2="935" y2="289" stroke="#6b4f55" stroke-width="2"/>
+        <line x1="550" y1="300" x2="935" y2="465" stroke="#6b4f55" stroke-width="2"/>
+        <!-- cluster ties -->
+        <line x1="165" y1="168" x2="165" y2="300" stroke="#9ec6a6" stroke-width="1.5" stroke-dasharray="1 6" opacity=".8"/>
+        <line x1="935" y1="140" x2="935" y2="250" stroke="#e8b567" stroke-width="1.5" stroke-dasharray="1 6" opacity=".8"/>
+        <line x1="935" y1="328" x2="935" y2="430" stroke="#e8b567" stroke-width="1.5" stroke-dasharray="1 6" opacity=".8"/>
+        <!-- the gap: a branch with nothing on it -->
+        <line x1="550" y1="350" x2="550" y2="470" stroke="#e8b567" stroke-width="2.5" stroke-dasharray="8 7"/>
+        <!-- theme labels -->
+        <text x="165" y="42" text-anchor="middle" fill="#9ec6a6" font-family="system-ui,sans-serif" font-size="20" font-weight="700" letter-spacing="1">Theme 1 · trust the words</text>
+        <text x="935" y="30" text-anchor="middle" fill="#e8b567" font-family="system-ui,sans-serif" font-size="20" font-weight="700" letter-spacing="1">Theme 2 · loosely defined</text>
+        <!-- hub -->
+        <rect x="400" y="250" width="300" height="100" rx="14" fill="#3a2830" stroke="#eb8f99" stroke-width="3"/>
+        <text x="550" y="290" text-anchor="middle" fill="#f6ece9" font-family="Georgia,serif" font-weight="700" font-size="24"><tspan x="550">Do eco-labels tell</tspan><tspan x="550" dy="28">shoppers the truth?</tspan></text>
+        <!-- source nodes: Theme 1 (left) -->
+        <rect x="40" y="90" width="250" height="78" rx="12" fill="#22302a" stroke="#9ec6a6" stroke-width="2"/>
+        <text x="165" y="124" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="165" font-size="19" font-weight="700" fill="#e9f2ec">Nielsen 2018</tspan><tspan x="165" dy="25" font-size="17" fill="#bfc9c0">shoppers pay more</tspan></text>
+        <rect x="40" y="300" width="250" height="78" rx="12" fill="#22302a" stroke="#9ec6a6" stroke-width="2"/>
+        <text x="165" y="334" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="165" font-size="18" font-weight="700" fill="#e9f2ec">Consumer Reports 2016</tspan><tspan x="165" dy="25" font-size="17" fill="#bfc9c0">assume it's regulated</tspan></text>
+        <!-- source nodes: Theme 2 (right) -->
+        <rect x="810" y="70" width="250" height="72" rx="12" fill="#322a1a" stroke="#e8b567" stroke-width="2"/>
+        <text x="935" y="101" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="935" font-size="19" font-weight="700" fill="#f6ece9">FDA</tspan><tspan x="935" dy="24" font-size="17" fill="#d8c3a0">“natural” undefined</tspan></text>
+        <rect x="810" y="250" width="250" height="78" rx="12" fill="#322a1a" stroke="#e8b567" stroke-width="2"/>
+        <text x="935" y="282" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="935" font-size="19" font-weight="700" fill="#f6ece9">USDA</tspan><tspan x="935" dy="24" font-size="17" fill="#d8c3a0">inspected, but narrow</tspan></text>
+        <rect x="810" y="430" width="250" height="72" rx="12" fill="#322a1a" stroke="#e8b567" stroke-width="2"/>
+        <text x="935" y="461" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="935" font-size="19" font-weight="700" fill="#f6ece9">Dumas 2021</tspan><tspan x="935" dy="24" font-size="17" fill="#d8c3a0">too many seals</tspan></text>
+        <!-- the empty node (gap) -->
+        <rect x="400" y="470" width="300" height="90" rx="14" fill="none" stroke="#e8b567" stroke-width="2.5" stroke-dasharray="8 7"/>
+        <text x="550" y="508" text-anchor="middle" font-family="system-ui,sans-serif"><tspan x="550" font-size="22" font-weight="800" fill="#e8b567">?  no source here</tspan><tspan x="550" dy="26" font-size="18" fill="#e8b567">who grows the food</tspan></text>
+      </svg>
+    </figure>
+    <p class="wn-cap" style="margin-top:8px">Two sources sit on the left (shoppers trust the words), three on the right (the words are loosely defined). They agree trust is high, but clash on whether it's earned. <b>The dashed branch is your gap:</b> a spoke with no source on it, because nobody mapped the people who grow the food.</p>
+    <p class="sub" style="margin-top:10px"><b>WorkNet:</b> Derek Mueller, a writing-studies scholar, developed it (this version, 2010) as a way to sketch how one source connects to others. <a href="https://www.derekmueller.net/rc/teaching/archive/engl326fa10/worknets.html" target="_blank" rel="noopener" style="color:var(--gold)">See his originals</a>.</p>
+  </section>
+
+  <!-- 5 · NAME IT · SYNTHESIS (two clean before/after pairs) -->
+  <section class="panel">
+    <div class="kick">Name it · synthesis</div>
+    <h2 class="q" style="font-size:clamp(1.5rem,3vw,2.3rem)">Synthesis: write your sources as one conversation</h2>
+    <p class="sub">Same sources, two ways to write them up. Read the List, then the Conversation right under it.</p>
+    <p class="exnum">Example 1 · do shoppers trust the labels?</p>
+    <div class="wex"><span class="tag list">List</span><p>Nielsen (2018) found shoppers pay more for eco-labels. Consumer Reports (2016) found most shoppers misread "natural."</p></div>
+    <div class="wex"><span class="tag conv">Conversation</span><p>Shoppers pay real money for eco-labels (Nielsen 2018), even while misreading what the words legally promise (Consumer Reports 2016).</p></div>
+    <p class="exnum">Example 2 · what do the words actually mean?</p>
+    <div class="wex"><span class="tag list">List</span><p>The FDA has no definition of "natural." The USDA certifies "organic." Dumas (2021) says there are too many seals.</p></div>
+    <div class="wex"><span class="tag conv">Conversation</span><p>The labels shoppers lean on are wildly uneven: "organic" is federally inspected (USDA), "natural" was never defined (FDA), and new seals keep multiplying faster than anyone can vet them (Dumas 2021).</p></div>
+  </section>
+
+  <!-- 6 · NAME IT · THE GAP (photo + two gap types, same clean format) -->
   <section class="panel">
     <div class="scene">
       <figure>
         <img src="images/week04-day1-farmworker.jpg" alt="A farm worker carrying boxes to pickers in a lettuce field">
         <figcaption>A farm worker in the lettuce fields along the Colorado River (U.S. National Archives, public domain).</figcaption>
       </figure>
-      <div class="board">
-        <b>A list</b> reads: one study says shoppers trust "organic," another says "natural" has no legal rule, a third looked at "local."
-        <span class="big">A conversation reads: they agree shoppers trust eco-labels, but the words carry very different rules, and nobody asked the people who grow the food.</span>
-        <span class="also">The strongest gaps often name a voice left out of the frame.</span>
+      <div>
+        <div class="kick">Name it · the gap</div>
+        <h2 class="q" style="font-size:clamp(1.5rem,3vw,2.3rem)">The gap: what the conversation leaves out</h2>
+        <p class="sub">The gap is the question your sources never reach. It usually takes one of these shapes:</p>
+        <div class="wex"><span class="tag gap">A missing voice</span><p>All five sources study the shopper or the rule. None asks the people who grow and pick the food.</p></div>
+        <div class="wex"><span class="tag gap">An untested setting</span><p>Every study looks at big grocery chains. None looks at a small farmers' market, where the labels may work very differently.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 5 · THE CONVERSATION + THE SILENCE -->
+  <!-- 7 · HOW THE MAP BECOMES THE REVIEW -->
   <section class="panel">
-    <h2 class="q">Where do your sources agree? Where do they clash? What's missing?</h2>
-    <p class="sub">Sort them, then look for the silence in the conversation.</p>
-    <textarea data-k="w4-b3" aria-label="board"></textarea>
+    <div class="kick">The map is what you write from.</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">How a WorkNet turns into a lit review</h2>
+    <div class="board">
+      <b>A cluster becomes a paragraph.</b> Theme 1 turns into: "Shoppers reward eco-labels with real money and loyalty (Nielsen 2018), often assuming a regulation that isn't there (Consumer Reports 2016)."
+      <span class="big"><b>The clash becomes your turn.</b> "&hellip;yet the words carry wildly uneven rules, from &lsquo;organic,&rsquo; which the USDA inspects, to &lsquo;natural,&rsquo; which the FDA never defined (FDA; Dumas 2021)."</span>
+      <span class="also"><b>The empty branch becomes your bridge.</b> "What none of these studies asks is who grows the food, the question this study takes up." The WorkNet doesn't write the review; it hands you the skeleton, and that empty branch is your reason for writing.</span>
+    </div>
   </section>
 
   <!-- 6 · YOUR TURN · Notebook Entry 4a -->
   <section class="panel">
     <div class="kick">Your turn · Notebook Entry 4a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Cluster your own five sources, then name your gap.</h2>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Map your own sources, then name your gap.</h2>
     <p class="sub">On your own first, then we'll hear a few.</p>
     <div class="prompts">
-      <div class="p">Group your five sources into two or three themes. Give each theme a plain name.</div>
-      <div class="p">Inside and across those themes, where do the sources agree? Where do they tension against each other?</div>
+      <div class="p">You likely have more than five sources by now. Pull together everything you have or plan to use, then either sort them all into themes or pick the five that best show your themes. Give each theme a plain name.</div>
+      <div class="p">Inside and across those themes, where do your sources agree? Where do they push against each other?</div>
       <div class="p">Draft your bridge sentence: "The research shows ___, but no one has ___, which is what I'll do."</div>
     </div>
   </section>
@@ -131,7 +226,7 @@
   <!-- 8 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
-    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">A lit review is a conversation, not a list.</h1>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">A lit review is your sources in conversation.</h1>
     <div class="idea">Thursday: enter the conversation and write it. P1 is due in Week 5, so start early.</div>
   </section>
 
