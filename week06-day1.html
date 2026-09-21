@@ -35,125 +35,288 @@
   .board .big{font-family:Georgia,serif; font-size:1.35em; color:var(--accent2); display:block; margin:14px 0}
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.92em}
   .prompts{counter-reset:p; font-size:clamp(1.35rem,2.5vw,2rem); line-height:1.4}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex; gap:18px}
-  .prompts .p::before{counter-increment:p; content:counter(p); color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex}
+  .prompts .p::before{counter-increment:p; content:counter(p); margin-right:18px; color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
   .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.85); border:1px solid var(--line); color:var(--soft); border-radius:8px; padding:7px 12px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
   .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
   .lb{position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain}
   .lb.on{display:flex}
+
+  /* quoted text under study */
+  .txt{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:12px; padding:26px 30px; font-family:Georgia,serif; font-size:clamp(1.3rem,2.5vw,2rem); line-height:1.45; margin:6px 0 22px}
+  .txt .src{display:block; margin-top:14px; font-family:-apple-system,system-ui,sans-serif; font-style:normal; font-size:.62em; color:var(--soft)}
+  /* comparison + codebook tables */
+  table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:clamp(.98rem,1.55vw,1.25rem)}
+  th,td{border:1px solid var(--line); padding:13px 16px; text-align:left; vertical-align:top}
+  th{background:rgba(235,143,153,.12); color:var(--accent); font-size:.8em; letter-spacing:.1em; text-transform:uppercase; font-weight:800}
+  td.code{font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--accent2); font-weight:700; white-space:nowrap}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.022)}
+  .tw{overflow-x:auto}
+  /* candidate code chips */
+  .chips{display:flex; flex-wrap:wrap; gap:14px; margin:10px 0 24px}
+  .chip{background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:12px 24px; font-size:clamp(1.05rem,1.8vw,1.45rem)}
+  /* corpus excerpt cards */
+  .exs{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:8px 0 20px}
+  @media (max-width:860px){ .exs{grid-template-columns:1fr} }
+  .exc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.28rem); line-height:1.45}
+  .exc .lab{display:block; font-family:Georgia,serif; font-size:1.5em; color:var(--gold); margin-bottom:6px; line-height:1}
+  /* fill-in template */
+  .tmpl{background:var(--field); border:1px dashed var(--accent); border-radius:12px; padding:22px 26px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(1.05rem,1.8vw,1.45rem); line-height:2}
+  .tmpl b{color:var(--accent2)}
 </style>
 </head>
 <body>
 
   <!-- 1 · TITLE -->
   <section class="panel title">
-    <div class="kick">Week 6 · Tuesday</div>
-    <h1>Coding the Corpus</h1>
-    <div class="idea">This week you count the patterns and prove they're really there.</div>
+    <div class="kick">Week 6 &middot; Tuesday</div>
+    <h1>From reading to coding.</h1>
   </section>
 
-  <!-- DEBATE OPENER -->
+  <!-- 2 · GOAL -->
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"If you can already see the pattern, coding every item is a waste of time. Counting only proves what you already knew."</h2>
-    <textarea data-k="w6-debate" aria-label="board"></textarea>
-  </section>
-
-
-  <!-- 2 · SCENE 1 -->
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week06-day1-grocery-shelf.jpg" alt="Produce section of a grocery store with 'Piedmont Produce', 'Organic', and 'Natural' signage">
-        <figcaption>Grocery produce section, Clemmons, North Carolina (Wikimedia Commons, CC BY 4.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">What is each claim actually promising?</h2>
-        <p class="sub">And which of these could a shopper check?</p>
-        <textarea data-k="w6d1-b1" aria-label="board"></textarea>
-      </div>
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="board">
+      A code you built yourself, written down well enough that somebody else in this room could pick it up and use it on a text you've never seen.
+      <span class="also">Along the way: what a code actually is, what goes in a codebook, and why most first attempts at a code don't work yet.</span>
     </div>
   </section>
 
-  <!-- 3 · NAME IT -->
+  <!-- 3 · COMING UP -->
   <section class="panel">
-    <div class="defs">
-      <div class="def"><h3>Code</h3><p>A short label for one move a text makes, with a definition and an example. "Appeal to nature" tags any claim that sells a product as good because it is natural.</p></div>
-      <div class="def"><h3>Codebook</h3><p>All your codes gathered in one place. Sharp enough that a classmate could tag the same texts and land close to where you did.</p></div>
-    </div>
-    <h2 class="q">"These feel manipulative" becomes "11 of 15 use an appeal to nature." Why does that swap matter?</h2>
-    <textarea data-k="w6d1-b2" aria-label="board"></textarea>
-  </section>
-
-  <!-- 4 · SO WHAT -->
-  <section class="panel">
-    <h2 class="q">Anyone can count. What does the pattern MEAN, and whose interest does it serve?</h2>
-    <p class="sub">The count is the easy part. The "so what" is the analysis.</p>
-    <textarea data-k="w6d1-b3" aria-label="board"></textarea>
-  </section>
-
-  <!-- 5 · SCENE 2 · CODE THESE LABELS -->
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week06-day1-organic-labels.jpg" alt="Close-up of a product label printed with 'green' and 'organic' claims">
-        <figcaption>Product label using "green" and "organic" claims (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">Tag all six taglines, then reveal.</h2>
-        <p class="sub">Which move runs the show, and who does it work on?</p>
-        <textarea data-k="w6d1-b4" aria-label="board"></textarea>
-      </div>
+    <div class="kick">Coming up</div>
+    <div class="board">
+      <b>P1, your Literature Review, is due Wednesday.</b> Google Doc, shared so I can comment.
+      <span class="also">Thursday you'll begin to code. Next week we'll bring in some tech to automate part of the coding process.</span>
     </div>
   </section>
 
-  <!-- 6 · BUILD YOUR CODEBOOK -->
+  <!-- 4 · RECONNECT -->
   <section class="panel">
-    <div class="kick">Your corpus · Entry 6a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Build your codebook.</h2>
-    <p class="sub">On your own first, then we test a few as a class.</p>
-    <div class="prompts">
-      <div class="p">From your own corpus, draft 3 to 5 codes. Name each move a label makes.</div>
-      <div class="p">Give each code a one-line definition and one real example pulled from your texts.</div>
-      <div class="p">Sharpen it until the code catches the same taglines every time you apply it.</div>
+    <div class="kick">Start where we left off</div>
+    <div class="txt">"Our city is committed to helping individuals experiencing homelessness connect with the services they need while ensuring that parks and public spaces remain safe and accessible for everyone."
+      <span class="src">A sentence of the kind you'd find on any municipal webpage.</span></div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Last week we'd have called this rhetorical analysis. What do you notice?</h2>
+  </section>
+
+  <!-- 5 · what's in there -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">Some of what's in there</div>
+    <div class="tw"><table>
+      <thead><tr><th style="width:34%">The language</th><th>What it's doing</th></tr></thead>
+      <tbody>
+        <tr><td>"committed"</td><td>Establishes institutional ethos. The city is a good actor before any claim is made.</td></tr>
+        <tr><td>"individuals experiencing homelessness"</td><td>Person-first language. A deliberate choice, and a recent one.</td></tr>
+        <tr><td>"services they need"</td><td>Implies a particular understanding of the problem: a need for services.</td></tr>
+        <tr><td>"safe and accessible"</td><td>Positions homelessness in tension with public safety.</td></tr>
+        <tr><td>"everyone"</td><td>Raises the question of who is imagined as the public, and who isn't.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 6 · the problem -->
+  <section class="panel">
+    <div class="kick">The problem</div>
+    <h2 class="q">All of that is useful. Now imagine I have forty of these pages instead of one sentence.</h2>
+    <p class="sub">I need some systematic way to keep track of what I'm seeing across all of them. That's coding.</p>
+  </section>
+
+  <!-- 7 · comparison -->
+  <section class="panel">
+    <div class="kick">Two different jobs</div>
+    <div class="tw"><table>
+      <thead><tr><th style="width:50%">Rhetorical analysis</th><th>Coding</th></tr></thead>
+      <tbody>
+        <tr><td>Closely examines how a text creates meaning</td><td>Systematically labels features across a set of texts</td></tr>
+        <tr><td>Asks, "what is this language doing?"</td><td>Asks, "what should I call this thing I keep seeing?"</td></tr>
+        <tr><td>Often produces interpretation</td><td>Produces organized data that can later be interpreted</td></tr>
+        <tr><td>May closely examine a few examples</td><td>Helps researchers compare many examples</td></tr>
+        <tr><td>"Safe and accessible" constructs homelessness partly as a public-space problem</td><td>Public safety frame</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 8 · the connection -->
+  <section class="panel">
+    <div class="board">
+      Coding does not replace rhetorical analysis.
+      <span class="big">It gives you a systematic way of doing it across a corpus.</span>
+      Same attention to language. Applied at a scale where you'd otherwise lose track of your own observations.
     </div>
   </section>
 
-  <!-- 7 · TEST IT -->
+  <!-- 9 · what is a code -->
   <section class="panel">
-    <h2 class="q">Could a stranger use your codebook and land where you did?</h2>
-    <p class="sub">If nobody can tell where a code applies, the definition needs work.</p>
-    <textarea data-k="w6d1-b5" aria-label="board"></textarea>
+    <div class="kick">Definition</div>
+    <h2 class="q" style="font-size:clamp(1.9rem,4vw,3rem)">A code is a short label researchers use to identify something meaningful that appears in their data.</h2>
   </section>
 
-  <!-- 8 · CLOSE -->
+  <!-- 10 · noticing vs coding -->
+  <section class="panel">
+    <div class="kick">Compare these two</div>
+    <div class="exs">
+      <div class="exc">"This makes homeless people sound dangerous."</div>
+      <div class="exc">Public safety frame</div>
+    </div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Which one can I systematically look for across forty texts?</h2>
+  </section>
+
+  <!-- 11 · the codebook entry -->
+  <section class="panel">
+    <div class="kick">The codebook</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.7rem)">This is what a codebook entry looks like.</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Code</th><th>Definition</th><th>Include when&hellip;</th><th>Example</th></tr></thead>
+      <tbody><tr>
+        <td class="code">PUBLIC<br>SAFETY<br>FRAME</td>
+        <td>Language that connects the social issue to safety, crime, danger, disorder, or protection of the public</td>
+        <td>The text explicitly describes the issue or affected population in relation to safety, crime, danger, disorder, policing, or protection</td>
+        <td style="font-family:Georgia,serif; font-style:italic">"Ensuring parks remain safe and accessible for everyone"</td>
+      </tr></tbody>
+    </table></div>
+    <div class="board" style="margin-top:8px">
+      A code has to be specific enough that <b>you</b> know when to use it, and specific enough that <b>someone unfamiliar with your codebook</b> could pick it up and apply it to texts you've never shown them.
+    </div>
+  </section>
+
+  <!-- 12 · is this a code -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">Decide as a class</div>
+    <h2 class="q" style="font-size:clamp(1.9rem,4vw,3rem)">Is this a code?</h2>
+    <div class="chips">
+      <span class="chip">Homelessness</span>
+      <span class="chip">Negative</span>
+      <span class="chip">Public safety frame</span>
+      <span class="chip">Statistics</span>
+      <span class="chip">Victim</span>
+      <span class="chip">Structural cause</span>
+      <span class="chip">Emotional language</span>
+    </div>
+  </section>
+
+  <!-- 13 · the probes -->
+  <section class="panel">
+    <div class="kick">Push on each one</div>
+    <div class="prompts" style="font-size:clamp(1.1rem,1.9vw,1.5rem)">
+      <div class="p"><span><b>Homelessness.</b> If every text in our corpus is about homelessness, what would this code tell us?</span></div>
+      <div class="p"><span><b>Negative.</b> Negative according to whom?</span></div>
+      <div class="p"><span><b>Statistics.</b> Could two researchers recognize a statistic when they saw one?</span></div>
+      <div class="p"><span><b>Victim.</b> Applied to whom, and who decided?</span></div>
+      <div class="p"><span><b>Emotional language.</b> Whose emotions, and measured how?</span></div>
+      <div class="p"><span><b>Structural cause.</b> What would have to appear in the text for us to apply this?</span></div>
+    </div>
+  </section>
+
+  <!-- 14 · the rule -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">The rule that comes out of that</div>
+    <div class="board">
+      <span class="big" style="margin-top:0">If you cannot explain what textual evidence would cause you to apply the code, the code isn't ready yet.</span>
+    </div>
+  </section>
+
+  <!-- 15 · build one together -->
+  <section class="panel">
+    <div class="kick">Build one together</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.7rem)">Take structural cause. What might it mean?</h2>
+    <p class="sub">And if the answer is "when the text says society causes the problem," then what counts as society? Name the things that would actually have to be on the page.</p>
+  </section>
+
+  <!-- 16 · the built code -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">What we just built</div>
+    <div class="tw"><table>
+      <thead><tr><th>Code</th><th>Definition</th><th>Include when&hellip;</th><th>Example</th></tr></thead>
+      <tbody><tr>
+        <td class="code">STRUCTURAL<br>CAUSE</td>
+        <td>Language that attributes a social problem to economic, political, institutional, or social conditions rather than primarily to individual choices or behavior</td>
+        <td>The text identifies systems or conditions such as housing costs, wages, discrimination, laws, institutional practices, or access to resources as contributing causes</td>
+        <td style="font-family:Georgia,serif; font-style:italic">"Rising rents and shortages of affordable housing have contributed to increased housing instability"</td>
+      </tr></tbody>
+    </table></div>
+  </section>
+
+  <!-- 17 · WORKSHOP · build three codes -->
+  <section class="panel">
+    <div class="kick">Workshop &middot; build three codes</div>
+    <div class="board" style="margin-bottom:20px">
+      <b>Your research question for this exercise:</b>
+      <span class="big" style="font-size:1.15em">How do local institutions explain the causes of homelessness, and the appropriate responses to it?</span>
+    </div>
+    <div class="exs">
+      <div class="exc"><span class="lab">A</span>"Substance abuse and untreated mental illness remain major contributors to chronic homelessness."</div>
+      <div class="exc"><span class="lab">B</span>"The county has expanded shelter capacity and behavioral-health outreach to help residents return to stable housing."</div>
+      <div class="exc"><span class="lab">C</span>"Rents have increased nearly 30 percent while wages for low-income workers have remained largely stagnant."</div>
+      <div class="exc"><span class="lab">D</span>"Residents have raised concerns about drug use, trash, and threatening behavior near downtown businesses."</div>
+    </div>
+    <p class="sub">On your own, write <b>three codes</b> that would help a researcher analyze patterns across these four. Each one needs a code, a definition, an include-when, and an example.</p>
+    <div class="board"><b>Do not try to code everything.</b> Your research question decides what matters. Anything that doesn't help you answer it can be left on the page.</div>
+  </section>
+
+  <!-- 18 · TEST IT -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">Workshop &middot; test it</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Trade codebooks. Now code five texts the author never saw.</h2>
+    <p class="sub">Use the other person's three codes on all five. You may not ask them what they meant.</p>
+    <div class="exs">
+      <div class="exc"><span class="lab">1</span>"City leaders approved increased police patrols downtown following complaints from merchants about aggressive behavior near businesses."</div>
+      <div class="exc"><span class="lab">2</span>"The nonprofit reported that 62 percent of the people it served had been employed at some point in the previous year."</div>
+      <div class="exc"><span class="lab">3</span>"Officials said the encampment was cleared for sanitation reasons, and that outreach workers offered shelter beds to everyone present."</div>
+      <div class="exc"><span class="lab">4</span>"A resident told the council her rent had gone up twice in eighteen months and she was now three hundred dollars short every month."</div>
+      <div class="exc"><span class="lab">5</span>"The mayor's office declined to say how many of the offered shelter beds were accepted."</div>
+    </div>
+  </section>
+
+  <!-- 19 · debrief -->
+  <section class="panel">
+    <div class="kick">Report back</div>
+    <div class="prompts" style="font-size:clamp(1.1rem,1.9vw,1.5rem)">
+      <div class="p"><span>Could you use their codes at all?</span></div>
+      <div class="p"><span>Which of the five gave you the most trouble, and why?</span></div>
+      <div class="p"><span>Which definition was the one that failed you?</span></div>
+      <div class="p"><span>Did two of their codes seem to describe the same thing?</span></div>
+      <div class="p"><span>Did you find something important that none of their codes captured?</span></div>
+    </div>
+  </section>
+
+  <!-- 20 · exclude when -->
+  <section class="panel">
+    <div class="kick" style="color:var(--gold)">One more column</div>
+    <div class="board">
+      This is why researchers add <b>exclusion criteria</b>.
+      <span class="big">The hard part of coding is rarely what obviously belongs. It's what happens at the edges.</span>
+      Take one of your three codes and add an <b>Exclude when&hellip;</b> rule to it now.
+    </div>
+  </section>
+
+  <!-- 21 · YOUR PROJECT -->
+  <section class="panel">
+    <div class="kick">Your project &middot; Entry 6a</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Write your own research question, then build one code for it.</h2>
+    <p class="sub">What is one thing you'd need to be able to identify across your texts in order to answer that question? Here's the same move on a different topic:</p>
+    <div class="tw"><table>
+      <thead><tr><th style="width:23%">Worked example</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Research question</td><td>How do grocery chains describe their role in communities without a full-service grocery store?</td></tr>
+        <tr><td>What I'd need to spot</td><td>Whether the company presents itself as fixing a community problem, or as responding to a business opportunity.</td></tr>
+        <tr><td class="code">CODE</td><td class="code" style="white-space:normal">COMMUNITY BENEFIT CLAIM</td></tr>
+        <tr><td>Definition</td><td>Language in which a company frames its own presence as an improvement to community wellbeing rather than as a commercial decision</td></tr>
+        <tr><td>Include when</td><td>The text credits the store with improving access, health, employment, or neighborhood conditions</td></tr>
+        <tr><td>Exclude when</td><td>The text describes only commercial factors such as foot traffic, margins, or site selection</td></tr>
+        <tr><td>Example</td><td style="font-family:Georgia,serif; font-style:italic">"We're proud to bring fresh produce to a neighborhood that has gone without it for years"</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tmpl" style="margin-top:14px"><b>CODE:</b><br><b>DEFINITION:</b><br><b>INCLUDE WHEN:</b><br><b>EXCLUDE WHEN:</b><br><b>EXAMPLE:</b></div>
+  </section>
+
+  <!-- 22 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
-    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">The count is easy. The "so what" is the grade.</h1>
-    <div class="idea">Thursday: run your codebook across the whole corpus, count, and interpret. That is your P2 taking shape.</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">If you can't say what would make you apply it, it isn't a code yet.</h1>
+    <div class="idea">That entry you just wrote is the start of the codebook you'll use on P2.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
-  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
-
-<script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
-  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
-  document.querySelectorAll('figure img').forEach(function(img){
-    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
-  });
-  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
-</script>
 </body>
 </html>
