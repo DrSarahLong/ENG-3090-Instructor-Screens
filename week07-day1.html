@@ -35,127 +35,324 @@
   .board .big{font-family:Georgia,serif; font-size:1.35em; color:var(--accent2); display:block; margin:14px 0}
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.92em}
   .prompts{counter-reset:p; font-size:clamp(1.35rem,2.5vw,2rem); line-height:1.4}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex; gap:18px}
-  .prompts .p::before{counter-increment:p; content:counter(p); color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex}
+  .prompts .p::before{counter-increment:p; content:counter(p); margin-right:18px; color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
   .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.85); border:1px solid var(--line); color:var(--soft); border-radius:8px; padding:7px 12px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
   .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
   .lb{position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain}
   .lb.on{display:flex}
+
+  .txt{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:12px; padding:22px 26px; font-family:Georgia,serif; font-size:clamp(1.1rem,2vw,1.5rem); line-height:1.45; margin:6px 0 20px}
+  .txt .src{display:block; margin-top:12px; font-family:-apple-system,system-ui,sans-serif; font-style:normal; font-size:.62em; color:var(--soft)}
+  table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:clamp(.95rem,1.5vw,1.2rem)}
+  th,td{border:1px solid var(--line); padding:12px 15px; text-align:left; vertical-align:top}
+  th{background:rgba(235,143,153,.12); color:var(--accent); font-size:.8em; letter-spacing:.09em; text-transform:uppercase; font-weight:800}
+  td.n{font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--accent2); font-weight:700}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.022)}
+  .tw{overflow-x:auto}
+  .steps{counter-reset:s; margin:8px 0 18px}
+  .steps .s{position:relative; background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent2); border-radius:12px; padding:16px 20px 16px 62px; margin:12px 0; font-size:clamp(1.02rem,1.65vw,1.32rem); line-height:1.45}
+  .steps .s::before{counter-increment:s; content:"STEP " counter(s); position:absolute; left:14px; top:16px; writing-mode:vertical-rl; font-size:.58rem; letter-spacing:.12em; color:var(--accent2); font-weight:800}
+  .steps .s b{color:var(--accent2)}
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:6px 0 18px}
+  @media (max-width:820px){ .two{grid-template-columns:1fr} }
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.28rem); line-height:1.45}
+  .card .lab{display:block; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:6px}
+  .card.g{border-left:4px solid var(--gold)} .card.g .lab{color:var(--gold)}
+  .card.s{border-left:4px solid var(--accent2)} .card.s .lab{color:var(--accent2)}
+  .warn{background:#2a1618; border:1px solid #6a3138; border-left:5px solid #d9606d; border-radius:12px; padding:20px 24px; font-size:clamp(1.05rem,1.8vw,1.4rem); line-height:1.5; margin:10px 0 18px}
+  .warn b{color:#f2949e}
+  .tmpl{background:var(--field); border:1px dashed var(--accent); border-radius:12px; padding:20px 24px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(.95rem,1.55vw,1.2rem); line-height:1.8}
+  .tmpl b{color:var(--accent2)}
 </style>
 </head>
 <body>
 
   <!-- 1 · TITLE -->
   <section class="panel title">
-    <div class="kick">Week 7 · Tuesday</div>
-    <h1>The Tools</h1>
-    <div class="idea">You counted by hand. Watch what a tool does with the same texts in seconds.</div>
+    <div class="kick">Week 7 &middot; Tuesday &middot; Workshop</div>
+    <h1>From codebook to conclusion.</h1>
   </section>
 
-  <!-- DEBATE OPENER -->
+  <!-- 2 · GOAL -->
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"A tool that codes a thousand texts in seconds makes human coders obsolete. Doing it by hand now is nostalgia, not method."</h2>
-    <textarea data-k="w7-debate" aria-label="board"></textarea>
-  </section>
-
-
-  <!-- 2 · SCENE 1 · WORD CLOUD -->
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week07-day1-word-cloud.png" alt="A word cloud showing the most frequent words in a body of text, sized by how often they appear">
-        <figcaption>A word cloud: word size shows how often each term appears in a body of text (Wikimedia Commons, CC0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">A tool made this in seconds.</h2>
-        <p class="sub">What can it show you about your corpus, and what can it not?</p>
-        <textarea data-k="w7d1-b1" aria-label="board"></textarea>
-      </div>
+    <div class="kick">Goal of today</div>
+    <h2 class="q">What you'll walk out with</h2>
+    <div class="board">
+      A corpus loaded into Voyant, a codebook sharp enough to hand someone else, numbers you
+      can defend, and the start of a written finding about power and justice.
+      <span class="also">Working session. Laptop open the whole time.</span>
     </div>
   </section>
 
-  <!-- 3 · NAME IT -->
+  <!-- 3 · COMING UP -->
   <section class="panel">
-    <div class="defs">
-      <div class="def"><h3>Frequency list</h3><p>Every word ranked by how often it appears. "Natural" shows up 40 times, "tested" twice.</p></div>
-      <div class="def"><h3>Word cloud</h3><p>The same counts drawn as sized text. Fast to read, easy to over-trust.</p></div>
-      <div class="def"><h3>Concordance</h3><p>Every place a word appears, shown in its surrounding line, so you see how "natural" is actually used.</p></div>
-      <div class="def"><h3>Collocation</h3><p>Words that keep showing up next to each other, like "all natural" or "clinically proven."</p></div>
-    </div>
-    <h2 class="q">Voyant, AntConc, AI, a spreadsheet. Each counts. None of them tells you what it means.</h2>
-    <textarea data-k="w7d1-b2" aria-label="board"></textarea>
-  </section>
-
-  <!-- 4 · METAL DETECTOR -->
-  <section class="panel">
-    <h2 class="q">The tool is a metal detector. It finds the spot fast. What can't it tell you?</h2>
-    <p class="sub">Tools count. You interpret.</p>
-    <textarea data-k="w7d1-b3" aria-label="board"></textarea>
-  </section>
-
-  <!-- 5 · SCENE 2 · READ THE OUTPUT -->
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week07-day1-produce.jpg" alt="Grocery produce display with printed shelf tags describing each item">
-        <figcaption>Produce shelf tags, the kind of label text a tool would read as your corpus (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">Frequency says how often.</h2>
-        <p class="sub">What does the concordance say that a count never could?</p>
-        <textarea data-k="w7d1-b4" aria-label="board"></textarea>
-      </div>
+    <div class="kick">Coming up</div>
+    <div class="board">
+      <b>P2, your Discourse Analysis, is due Sunday at the end of Week 9.</b> About three pages,
+      Google Doc.
+      <span class="also">You'll start the write-up Thursday and finish it over the following week.
+      Nothing is due at the end of today.</span>
     </div>
   </section>
 
-  <!-- 6 · PLAN YOUR TOOL PASS -->
+  <!-- 4 · THE STEPS -->
   <section class="panel">
-    <div class="kick">Your corpus · Entry 7a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Plan your tool pass.</h2>
-    <p class="sub">On your own first, then run it if your corpus is ready as searchable text.</p>
-    <div class="prompts">
-      <div class="p">Which tool fits your question: Voyant, AntConc, AI, or a spreadsheet?</div>
-      <div class="p">What one thing will you ask it to find? A word, a pairing, a pattern across your texts.</div>
-      <div class="p">What do you expect it to show, and how will you check whether that reading holds up?</div>
+    <div class="kick gold">The steps</div>
+    <div class="steps">
+      <div class="s"><b>Find the gap, and name the injustice.</b> What has the literature not answered, and what is at stake in it? If your study never happened, what would the world lose? That answer is your "so what," and it comes out of your literature review.</div>
+      <div class="s"><b>Build the corpus.</b> Gather the texts. Decide what's in, what's out, and be able to say why.</div>
+      <div class="s"><b>Define the codes.</b> Frame-level labels with definitions and include/exclude rules.</div>
+      <div class="s"><b>Describe the corpus.</b> How many texts, how long, how varied. This is part of your Methods section.</div>
+      <div class="s"><b>Find each code's lexical footprint.</b> Which words actually signal the frame in these particular texts.</div>
+      <div class="s"><b>Apply the codes, passage by passage.</b> A tool cannot do this for you, but it can help you.</div>
+      <div class="s"><b>Count, normalize, interpret, write.</b> Turn coded passages into a finding about power and justice.</div>
     </div>
   </section>
 
-  <!-- 7 · SHARE A FINDING -->
+  <!-- 5 · JUST THIS PART OF METHODS -->
   <section class="panel">
-    <h2 class="q">One thing a tool found in your texts that surprised you.</h2>
-    <p class="sub">Go.</p>
-    <textarea data-k="w7d1-b5" aria-label="board"></textarea>
+    <div class="kick">One thing about Methods before we start</div>
+    <div class="warn">
+      <b>You are not writing your Methods section today.</b> You are writing two paragraphs of it:
+      how you built your corpus, and how you built your codebook.
+    </div>
+    <div class="board">
+      Label them in your notebook as what they are: <b>corpus</b> and <b>codebook</b>.
+      <span class="big">Two paragraphs today. Your Methods section will need more.</span>
+      P3 asks you to design an instrument, recruit participants, and collect your own data from
+      people. That work gets its own Methods paragraphs, and you can't write them yet. So when you
+      assemble the IMRAD, you'll know which paragraphs you already have and which are missing.
+    </div>
   </section>
 
-  <!-- 8 · CLOSE -->
+  <!-- 6 · WHAT EACH TOOL CAN AND CANNOT DO -->
+  <section class="panel">
+    <div class="kick gold">Two different machines, two different jobs</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Get this straight before you open anything.</h2>
+    <div class="two">
+      <div class="card g"><span class="lab">Voyant counts words</span>It ranks them, shows every place a word appears in context, finds which words cluster together, and measures how long and how varied your documents are. <b>It cannot judge a frame.</b> "Safe" is a string of four letters to it. It has no idea who is being kept safe from whom.</div>
+      <div class="card s"><span class="lab">AI reads for meaning</span>Hand it your codebook and a text and it <b>can</b> apply your codes as a first pass. That is what it is built to do, and it will do in ninety seconds what would take you an hour. It will also be confidently wrong some of the time, which is why you verify it.</div>
+    </div>
+    <div class="board">
+      So the division of labor is: Voyant tells you where to look and describes what you gathered.
+      AI does the first coding pass. You verify, resolve the hard cases, and decide what it means.
+      <span class="big">The judgment is the part that is yours.</span>
+    </div>
+  </section>
+
+  <!-- 7 · LOAD THE CORPUS -->
+  <section class="panel">
+    <div class="kick">Do this now</div>
+    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.7rem)">Load the Asheville corpus.</h2>
+    <p class="sub">Three texts about homelessness in Asheville: a news report on downtown merchants at
+    City Council, an opinion column, and a nonprofit's newsletter. We'll work these together all
+    hour, then you'll do the same moves on your own texts.</p>
+    <div class="prompts" style="font-size:clamp(1.05rem,1.7vw,1.35rem)">
+      <div class="p"><span>Course site &rarr; <b>Week 7 Corpus</b>. Each text has a copy button.</span></div>
+      <div class="p"><span>Open the Voyant mirror, choose <b>Add Texts</b>, and paste each text into its <b>own box</b>.</span></div>
+      <div class="p"><span>Three separate documents, not one. If Voyant thinks you handed it one text, half of what we're about to read goes flat.</span></div>
+    </div>
+  </section>
+
+  <!-- 8 · WORD CLOUD, EARLY, AS A CODEBOOK TOOL -->
+  <section class="panel">
+    <div class="kick gold">First look: the word cloud</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">It is a bad finding and a good codebook tool.</h2>
+    <div class="two">
+      <div class="card"><span class="lab">Never use it as evidence</span>It shows frequency and nothing else. Size means "appears often," not "matters." It strips every word out of the context your analysis depends on. "Safe" appearing large tells you nothing about who is being kept safe from whom. Do not put one in P2.</div>
+      <div class="card s"><span class="lab">Use it to build your codes</span>It shows you the vocabulary of the conversation before you've decided what to look for. Words you expected turn out to be rare. Words you never considered are everywhere. That is <b>codebook design</b>: the cloud tells you which words are worth building a code around, and which of your codes have nothing to grab onto in this corpus.</div>
+    </div>
+    <div class="board">
+      Look at the cloud for our three texts. Which words would you build a code around, and which
+      of last week's codes look like they'll find nothing here?
+      <span class="also">That's the whole use of it. Then close the tab.</span>
+    </div>
+  </section>
+
+  <!-- 9 · THE MEASURES -->
+  <section class="panel">
+    <div class="kick">Read the tool's output</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">What each number means, and what it's for.</h2>
+    <div class="tw"><table>
+      <thead><tr><th style="width:20%">Measure</th><th style="width:34%">What it is</th><th>What it's for, with an example</th></tr></thead>
+      <tbody>
+        <tr><td class="n">Documents</td><td>How many separate texts you loaded.</td><td>Your corpus size. Ours is 3. Three is small, and you say so in Methods: "a corpus of three texts" tells a reader not to expect generalizable claims.</td></tr>
+        <tr><td class="n">Total words</td><td>Every word, counted every time it appears.</td><td>The scale of what you read, and the denominator you'll need to turn counts into rates.</td></tr>
+        <tr><td class="n">Unique words</td><td>How many <i>different</i> words appear. "Shelter" ten times counts once.</td><td>Vocabulary range. Compare it to total words and you get the next row.</td></tr>
+        <tr><td class="n">Vocabulary<br>density</td><td>Unique words divided by total words.</td><td>A register signal, but length-sensitive: short texts look denser automatically. Our 185-word news report will beat our 370-word column on density for reasons that have nothing to do with style. Only compare documents of similar length.</td></tr>
+        <tr><td class="n">Document<br>length</td><td>Word count per text.</td><td>Shows whether your corpus is lopsided. The column is twice the news report, so any raw count will over-represent the column. This is why the normalization panel exists.</td></tr>
+        <tr><td class="n">Words per<br>sentence</td><td>Average sentence length.</td><td>Register. The council report runs long and subordinate; the column ends on "They are waiting." Four words. That contrast is a finding about audience.</td></tr>
+        <tr><td class="n">Concordance</td><td>Every appearance of a word, shown with the words around it.</td><td><b>Your most useful view.</b> The only one that shows how a word is actually used. Run "safe" and you'll see why in a minute.</td></tr>
+        <tr><td class="n">Collocation</td><td>Words that repeatedly appear near each other.</td><td>Finds phrase-level patterns you'd miss by hand. If "safe" travels with "visitors" in one text and with "housing" in another, you've found two different arguments using one word.</td></tr>
+        <tr><td class="n">Trends</td><td>Where a word falls across the corpus, document by document.</td><td>Tells you whether you have a corpus-wide pattern or one loud document. If "patrols" appears 9 times and 8 of them are in Text 1, you cannot write "this coverage emphasizes enforcement." You can write "one of the three texts emphasizes enforcement," which is a different and more defensible claim.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <!-- 10 · THESE ARE METHODS, NOT FINDINGS -->
+  <section class="panel">
+    <div class="warn">
+      <b>None of those numbers is a finding.</b> Vocabulary density of 0.412 is not a result. It is a
+      description of the pile of paper you gathered.
+    </div>
+    <div class="board">
+      Every measure on that table belongs in the corpus paragraph of your Methods.
+      <span class="big">Findings are about your codes. Methods are about your corpus.</span>
+      Students lose this criterion every year by reporting the tool's dashboard as their analysis.
+    </div>
+  </section>
+
+  <!-- 11 · WRITE THE CORPUS PARAGRAPH -->
+  <section class="panel">
+    <div class="kick">Write it now, in your notebook</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Methods, paragraph one: your corpus.</h2>
+    <div class="tmpl">This analysis draws on a corpus of <b>[N]</b> texts totaling <b>[N]</b> words, gathered from <b>[what kinds of sources]</b> published between <b>[dates]</b>. Documents range from <b>[shortest]</b> to <b>[longest]</b> words. Texts were selected because <b>[your inclusion rule]</b>; I excluded <b>[what, and why]</b>. The corpus is small enough that I read every text closely, and I make no claim that it represents <b>[the larger population]</b>.</div>
+    <div class="board">
+      <span class="big">Overstating is the fastest way to lose a reader you already had.</span>
+      Claim three texts' worth and a reader trusts your three texts. Claim that three texts reveal
+      how America talks about homelessness and they stop trusting anything else in the paper,
+      including the parts you got right.
+    </div>
+  </section>
+
+  <!-- 12 · LEXICAL FOOTPRINT -->
+  <section class="panel">
+    <div class="kick">Do this now</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Give each code a set of words to hunt.</h2>
+    <p class="sub">Take one code from last week. Find the words that signal it in <i>this</i> corpus.</p>
+    <div class="steps">
+      <div class="s">From the cloud and the frequency list, write down every word that might signal your code.</div>
+      <div class="s">Run <b>Concordance</b> on each one and read the actual lines. Cross out the words that turn out to mean something else.</div>
+      <div class="s">Run <b>Collocation</b> on the survivors. What keeps showing up beside them? Add those.</div>
+      <div class="s">Write the surviving list into your codebook entry. That's your <b>lexical footprint</b>, and it makes your coding checkable: someone else can run the same searches and see whether they land where you landed.</div>
+    </div>
+  </section>
+
+  <!-- 13 · THE TRAP -->
+  <section class="panel">
+    <div class="kick gold">Now run "safe" in the concordance</div>
+    <h2 class="q">Three hits. Three incompatible meanings.</h2>
+    <div class="txt">"Our visitors do not feel <b>safe</b>, and they are telling us so."
+      <span class="src">Text 1 &middot; safe FROM homeless people</span></div>
+    <div class="txt">"But housing is what makes a person <b>safe</b>. A door that locks is what makes a person <b>safe</b>."
+      <span class="src">Text 2 &middot; safe MEANS housed</span></div>
+    <div class="txt">"Every person we place is a person who has a <b>safe</b> place to sleep that night."
+      <span class="src">Text 3 &middot; safe FOR a homeless person, for one night</span></div>
+  </section>
+
+  <!-- 14 · THE POINT -->
+  <section class="panel">
+    <div class="board">
+      One frames homelessness as a danger to other people. One frames housing itself as safety.
+      One means a bed, tonight.
+      <span class="big">A word count cannot tell them apart. A reader can.</span>
+      This is why the footprint is a search strategy and not an answer. Voyant just narrowed three
+      texts down to the three passages worth arguing about. Arguing about them is the analysis.
+    </div>
+  </section>
+
+  <!-- 15 · APPLY THE CODES -->
+  <section class="panel">
+    <div class="kick">Do this now</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Code the corpus, passage by passage.</h2>
+    <div class="steps">
+      <div class="s">Make a table: one row per coded passage. Columns for <b>text</b>, <b>the quoted passage</b>, <b>the code</b>, and <b>why it qualifies under your include rule</b>.</div>
+      <div class="s">Work through your concordance hits. That is your list of candidate passages.</div>
+      <div class="s">When a passage is ambiguous, do not force it. Log it as <b>contested</b> with one line about why. Text 3 is a good example: it uses service vocabulary to argue that services are being misused. Is that your service code or not? Defend your answer.</div>
+      <div class="s">If you change a code while coding, go back and re-check the texts you already did. Otherwise your first text was coded under different rules than your last.</div>
+    </div>
+  </section>
+
+  <!-- 16 · AI -->
+  <section class="panel">
+    <div class="kick gold">Using AI for this, ethically and correctly</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">It is a first-pass coder. You are the coder of record.</h2>
+    <div class="steps">
+      <div class="s">Paste your <b>full codebook</b>, definitions and include/exclude rules and all, then one text. Ask it to identify every passage matching each code and to quote them exactly.</div>
+      <div class="s">Ask it to explain <b>why</b> each passage qualifies. If the reason doesn't match your include rule, either your rule is vague or the model is guessing. Both are worth knowing, and fixing the rule is the actual work.</div>
+      <div class="s"><b>Verify.</b> For every text, check that at least two of its quoted passages actually appear in the text, word for word, and do fit the code.</div>
+      <div class="s">Write what you did in Methods: which model, what you asked it, and how you checked. Unreported AI coding is a hole in your method that any reader can put a finger through.</div>
+    </div>
+    <div class="warn">
+      <b>Two failure modes.</b> It will produce quotations that sound right and are not in your text.
+      And it will agree with whatever frame your codebook implies, because it is built to be
+      agreeable. Neither is a reason to avoid it. Both are reasons to check it.
+    </div>
+  </section>
+
+  <!-- 17 · NORMALIZE -->
+  <section class="panel">
+    <div class="kick">The counting problem</div>
+    <h2 class="q">Text 2 has six safety passages. Text 1 has three. Which text is more safety-framed?</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Text</th><th class="n">Words</th><th class="n">Passages</th><th class="n">Per 1,000 words</th><th>So?</th></tr></thead>
+      <tbody>
+        <tr><td>Text 2 (column)</td><td class="n">370</td><td class="n">6</td><td class="n">16.2</td><td>More passages, longer text.</td></tr>
+        <tr><td>Text 1 (news)</td><td class="n">185</td><td class="n">3</td><td class="n">16.2</td><td>Half the passages, <b>same rate</b>.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="board">
+      Raw counts favor long documents. Rates let you compare unlike things, and sometimes they
+      dissolve a difference you thought you had.
+      <span class="big">Report both, and say which one you're arguing from.</span>
+    </div>
+  </section>
+
+  <!-- 18 · WRITE THE FINDING -->
+  <section class="panel">
+    <div class="kick">Write it now</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">One finding, four moves.</h2>
+    <div class="steps">
+      <div class="s"><b>State the pattern.</b> What you counted, across how much. Numbers, plainly.</div>
+      <div class="s"><b>Show it.</b> Quote one passage that typifies the code. One strong quote beats three weak ones.</div>
+      <div class="s"><b>Complicate it.</b> Name the text that doesn't fit, or the passage you marked contested.</div>
+      <div class="s"><b>Say what it means, for power and for justice.</b> Who does this framing serve? Who is present in it, who is only spoken about, and who is not in it at all? What would change if the other frame won?</div>
+    </div>
+    <div class="tmpl">Across the <b>[N]</b> texts, <b>[CODE]</b> appeared in <b>[N]</b> passages in <b>[N]</b> of <b>[N]</b> documents, at <b>[N]</b> per thousand words, concentrated in <b>[which genres]</b>. A representative instance: "<b>[quote]</b>" (<b>[text]</b>). The pattern is not uniform: <b>[the text that resists it]</b> instead <b>[what it does]</b>. Read together, these texts <b>[the claim about power]</b>. The people described in them <b>[who speaks, who is spoken about]</b>, and that matters because <b>[what is at stake, i.e. your "so what"]</b>.</div>
+  </section>
+
+  <!-- 19 · WORKED EXAMPLE -->
+  <section class="panel">
+    <div class="kick gold">What that looks like filled in</div>
+    <div class="board" style="font-size:clamp(1rem,1.6vw,1.28rem); line-height:1.6">
+      Across the three texts, the word "safe" appears in all three and means something different
+      in each. In the merchants' account it means safe from homeless people; in the opinion column
+      it means housed; in the nonprofit newsletter it means a bed for one night. Only the merchants'
+      usage is attached to a proposed action, and that action is enforcement: patrols, ordinances,
+      a safety officer. The column and the newsletter both attach safety to housing and shelter,
+      and neither proposes anything a city could do by Tuesday. The pattern is not uniform. The
+      newsletter uses service vocabulary to argue that services are being misused as "a softer form
+      of removal," which is the only place in the corpus where the people being discussed are
+      described as understanding what is happening to them. Across all three texts, no unhoused
+      person speaks. They are counted, quoted about, and advocated for, in that order. That matters
+      because the frame with the clearest action attached to it is also the one built entirely from
+      the point of view of people who are not homeless.
+      <span class="also">Numbers, a quote, a complication, and a claim about power and justice. ~180 words.</span>
+    </div>
+  </section>
+
+  <!-- 20 · WHAT COMES NEXT -->
+  <section class="panel">
+    <div class="kick">Where this goes</div>
+    <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.5rem)">Five things by the end of next week.</h2>
+    <p class="sub">You start these Thursday and finish them over the following week. Nothing is due today.</p>
+    <div class="prompts" style="font-size:clamp(1.02rem,1.65vw,1.3rem)">
+      <div class="p"><span>Your codebook: three codes, each with a definition, include rule, exclude rule, example, and lexical footprint.</span></div>
+      <div class="p"><span>Your own corpus, gathered and loaded.</span></div>
+      <div class="p"><span>Methods, two paragraphs: how you built the corpus, how you built the codebook.</span></div>
+      <div class="p"><span>A coding table, with at least one passage marked contested.</span></div>
+      <div class="p"><span>Findings: your patterns, your quotes, and what they say about power and justice.</span></div>
+    </div>
+  </section>
+
+  <!-- 21 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
-    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Tools count. You interpret.</h1>
-    <div class="idea">Thursday: run your full corpus through Voyant and AI, then fold the findings into your analysis. That is P2 nearly done.</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">The machine found the passages. You decided what they meant.</h1>
+    <div class="idea">That sentence is the difference between a word count and a discourse analysis, and it's what P2 is graded on.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
-  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
-
-<script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
-  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
-  document.querySelectorAll('figure img').forEach(function(img){
-    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
-  });
-  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
-</script>
 </body>
 </html>
