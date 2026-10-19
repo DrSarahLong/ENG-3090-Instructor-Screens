@@ -46,29 +46,22 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 3 · Tuesday</div>
     <h1>Finding &amp; Vetting Sources</h1>
     <div class="idea">Find out what's already known, then decide who to trust.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"Real evidence comes from published studies and official data. One person's lived experience is just an anecdote."</h2>
-    <textarea data-k="w3-debate" aria-label="board"></textarea>
+    <h2 class="q">"Strong evidence comes from published studies and official data. One person's lived experience is just an anecdote."</h2>
   </section>
 
-
-  <!-- 2 · HARVEST question -->
   <section class="panel">
     <h2 class="q">You've got a question. Who already tried to answer something like it?</h2>
     <p class="sub">Where would you even start looking?</p>
-    <textarea data-k="w3d1-b1" aria-label="board"></textarea>
   </section>
 
-  <!-- 3 · SCENE 1 + breadcrumb throughline -->
   <section class="panel">
     <div class="scene">
       <figure data-note="optional: swap in a real screenshot of a paper's References page">
@@ -90,7 +83,6 @@
     </div>
   </section>
 
-  <!-- 4 · WHERE TO LOOK -->
   <section class="panel">
     <div class="kick">Where to actually look</div>
     <div class="defs">
@@ -102,7 +94,6 @@
     <div class="board"><b>The caveat:</b> AI invents sources that look real. <b>Never</b> cite anything you haven't opened and read.</div>
   </section>
 
-  <!-- 5 · SIFT -->
   <section class="panel">
     <div class="kick">How to vet what you find · SIFT</div>
     <div class="defs">
@@ -113,7 +104,6 @@
     </div>
   </section>
 
-  <!-- 6+7 · WHOSE SOURCES COUNT + hard triage (combined) -->
   <section class="panel">
     <div class="kick">Whose sources count? &middot; Trust it, depends, or skip</div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.6vw,2.7rem)">Which of these do you trust, and why?</h2>
@@ -121,15 +111,13 @@
     <div class="defs">
       <div class="def"><h3>1</h3><p>A <b>peer-reviewed study</b> concluding "natural" labels don't mislead, funded by an egg-producers' association.</p></div>
       <div class="def"><h3>2</h3><p>A polished <b>.org site</b>, the "Center for Food Integrity," that turns out to be an industry PR group.</p></div>
-      <div class="def"><h3>3</h3><p>A plain, ad-cluttered <b>blog</b> that cites six real studies and is written by a food scientist.</p></div>
+      <div class="def"><h3>3</h3><p>A drab, ad-cluttered <b>blog</b> that cites six actual studies and is written by a food scientist.</p></div>
       <div class="def"><h3>4</h3><p>An <b>FDA page</b> defining "healthy" on packaging, last updated in 2016.</p></div>
       <div class="def"><h3>5</h3><p>A <b>news headline</b>, "73% of shoppers fooled by green labels", but the study it links says 31%.</p></div>
       <div class="def"><h3>6</h3><p>A <b>Perplexity answer</b> with five citations, two of which vanish when you click them.</p></div>
     </div>
-    <textarea data-k="w3d1-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 7b · SOURCE TRIAGE (do it live) -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Do it yourself &middot; Source Triage</div>
     <h2 class="q" style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Now everyone sorts a fresh six.</h2>
@@ -137,7 +125,6 @@
     <p class="sub"><a href="https://drsarahlong.github.io/ENG_3090-/source-triage.html" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline">drsarahlong.github.io/ENG_3090-/source-triage.html</a></p>
   </section>
 
-  <!-- 8 · START ENTRY 3 -->
   <section class="panel">
     <div class="kick">Notebook · Entry 3</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Start it now.</h2>
@@ -150,28 +137,15 @@
     </div>
   </section>
 
-  <!-- 9 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">You can find it, and you can vet it.</h1>
     <div class="idea">Thursday, on your own: find and vet five sources, and use the breadcrumb trick on at least one.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

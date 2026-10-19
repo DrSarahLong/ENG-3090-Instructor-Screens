@@ -46,22 +46,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 2 · Thursday</div>
     <h1>Lock Your Topic</h1>
     <div class="idea">A topic you can actually research beats a topic you're just excited about.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"Study whatever you're most passionate about and figure out the 'how' later. Picking a topic because it's doable is how research gets boring."</h2>
-    <textarea data-k="w2b-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE 1 + first question -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -71,23 +66,20 @@
       <div>
         <h2 class="q">Every label on this shelf is a claim somebody could check.</h2>
         <p class="sub">Your topic in one sentence. Just one.</p>
-        <textarea data-k="w2d2-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 3 · NAME IT: what makes a topic lockable -->
   <section class="panel">
     <div class="kick">A lockable topic has four things</div>
     <div class="defs">
-      <div class="def"><h3>Texts to analyze</h3><p>Real documents you can put under a lens: labels, ads, policies, posts.</p></div>
-      <div class="def"><h3>People to ask</h3><p>Someone real you could interview or survey, a live voice beyond the books.</p></div>
+      <div class="def"><h3>Texts to analyze</h3><p>Actual documents you can put under a lens: labels, ads, policies, posts.</p></div>
+      <div class="def"><h3>People to ask</h3><p>An actual person you could interview or survey, a live voice beyond the books.</p></div>
       <div class="def"><h3>A justice angle</h3><p>Who is helped, who is misled, whose knowledge gets counted.</p></div>
       <div class="def"><h3>A strong question</h3><p>Open, arguable, answerable in a semester. Not a yes or no.</p></div>
     </div>
   </section>
 
-  <!-- 4 · SCENE 2: model the shrink -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -98,19 +90,16 @@
         <b>Too big:</b> "food labels."
         <span class="big">Do the sustainability claims on egg cartons at one store tell shoppers the truth?</span>
         One product, one store, one kind of claim. Now it fits in a semester.
-        <span class="also">Small enough to finish. Real enough to matter.</span>
+        <span class="also">Small enough to finish. Big enough to matter.</span>
       </div>
     </div>
   </section>
 
-  <!-- 5 · shrink yours -->
   <section class="panel">
     <h2 class="q">Got a topic that feels too big? Say it, and we'll shrink it together.</h2>
     <p class="sub">Narrow by product, place, or one specific claim.</p>
-    <textarea data-k="w2d2-b2" aria-label="board"></textarea>
   </section>
 
-  <!-- 6 · LOCK IT IN (Entry 2b prompts) -->
   <section class="panel">
     <div class="kick">Notebook · Entry 2b</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Lock it in. Fill all five.</h2>
@@ -124,35 +113,20 @@
     </div>
   </section>
 
-  <!-- 7 · READ IT TO THE ROOM -->
   <section class="panel">
     <h2 class="q">Read me your topic and question.</h2>
     <p class="sub">Now tell me: what will you analyze, and who will you ask?</p>
-    <textarea data-k="w2d2-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 8 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">You've got a topic you can work.</h1>
     <div class="idea">Next week: the literature review begins. Who already tried to answer a question like yours?</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

@@ -48,22 +48,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 13</div>
     <h1>Assembling What You Already Wrote</h1>
     <div class="idea">You have already written most of your final report. Today, the container it goes in.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"Format is bureaucratic busywork. If the findings are strong, the order of the sections shouldn't matter."</h2>
-    <textarea data-k="w13-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE 1 · running example -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -73,31 +68,26 @@
       <div>
         <h2 class="q">Our running study: do "natural / organic / local" labels tell shoppers the truth?</h2>
         <p class="sub">A reader who has never met your project has to find its parts fast.</p>
-        <textarea data-k="w13-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 3 · NAME IT · IMRAD as four questions -->
   <section class="panel">
     <div class="kick">IMRAD</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">A research report has a shared shape, so any reader can navigate it.</h2>
     <div class="defs">
       <div class="def"><h3>Introduction</h3><p>What and why. The question, and the gap that makes it worth asking.</p></div>
       <div class="def"><h3>Methods</h3><p>How. What you looked at and how you looked at it, so someone could follow your path.</p></div>
-      <div class="def"><h3>Results</h3><p>What you found. The findings themselves, reported plainly.</p></div>
+      <div class="def"><h3>Results</h3><p>What you found. The findings themselves, reported straight.</p></div>
       <div class="def"><h3>Discussion</h3><p>So what, and now what. What the findings mean, and what you recommend.</p></div>
     </div>
   </section>
 
-  <!-- 4 · QUESTION · Results vs Discussion -->
   <section class="panel">
     <h2 class="q">Results is what you found. Discussion is what it means. Why keep them in separate rooms?</h2>
     <p class="sub">Mixing the two is the most common slip in a research report.</p>
-    <textarea data-k="w13-b2" aria-label="board"></textarea>
   </section>
 
-  <!-- 5 · SCENE 2 · the hourglass shape -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -107,12 +97,10 @@
       <div>
         <h2 class="q">A report opens broad, narrows to your study, then opens broad again.</h2>
         <p class="sub">Why would a report be shaped like this?</p>
-        <textarea data-k="w13-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 6 · BOARD · the assembly map -->
   <section class="panel">
     <div class="kick">The good news</div>
     <div class="board">
@@ -124,14 +112,11 @@
     </div>
   </section>
 
-  <!-- 7 · QUESTION · sorter debrief -->
   <section class="panel">
     <h2 class="q">Which section does each piece of a study belong in, and how did you know?</h2>
     <p class="sub">Some pieces drop in easily. The ones worth talking about could sit in two sections.</p>
-    <textarea data-k="w13-b4" aria-label="board"></textarea>
   </section>
 
-  <!-- 8 · NAME IT · front and back matter + design -->
   <section class="panel">
     <div class="kick">Around the four sections</div>
     <div class="defs">
@@ -142,7 +127,6 @@
     </div>
   </section>
 
-  <!-- 9 · PROMPTS · Entry 13a -->
   <section class="panel">
     <div class="kick">Notebook Entry 13a · on your own</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Map your study into the shape.</h2>
@@ -153,35 +137,20 @@
     </div>
   </section>
 
-  <!-- 10 · QUESTION · share the spine -->
   <section class="panel">
     <h2 class="q">Say your whole study in one sentence.</h2>
     <p class="sub">If it holds together out loud, and carries all four beats, your report has a spine.</p>
-    <textarea data-k="w13-b5" aria-label="board"></textarea>
   </section>
 
-  <!-- 11 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">The scary part is over.</h1>
     <div class="idea">Thursday: pour the pieces into the structure, write the Discussion and abstract, and design the draft.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

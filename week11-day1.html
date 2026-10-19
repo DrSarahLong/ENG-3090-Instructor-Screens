@@ -46,22 +46,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 11 · Tuesday</div>
     <h1>Who You Ask Decides What You Find</h1>
     <div class="idea">You built the tool. Today you go get the data.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"A big enough sample beats a careful one every time. Get enough responses and who you asked stops mattering."</h2>
-    <textarea data-k="w11-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE 1 -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -71,12 +66,10 @@
       <div>
         <h2 class="q">You survey shoppers here about food labels. This is your sample.</h2>
         <p class="sub">What can it tell you about all shoppers, and what can't it?</p>
-        <textarea data-k="w11-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 3 · NAME IT -->
   <section class="panel">
     <div class="defs">
       <div class="def"><h3>Sample &amp; population</h3><p>The population is everyone your question is about. The sample is the slice you actually reach, standing in for the whole.</p></div>
@@ -86,14 +79,11 @@
     </div>
   </section>
 
-  <!-- 4 · QUESTION -->
   <section class="panel">
     <h2 class="q">If you only ask people like you, you studied your friends, not shoppers.</h2>
     <p class="sub">Who are you missing, and how would you reach them?</p>
-    <textarea data-k="w11-b2" aria-label="board"></textarea>
   </section>
 
-  <!-- 5 · SCENE 2 -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -103,19 +93,15 @@
       <div>
         <h2 class="q">Same question, a different crowd.</h2>
         <p class="sub">Whose voices are in your study, and whose are missing?</p>
-        <textarea data-k="w11-b3" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 6 · CLINIC DEBRIEF -->
   <section class="panel">
     <h2 class="q">For each recruiting choice: does it represent the question, is it too narrow, or does it cross a line?</h2>
     <p class="sub">And which bias is at work?</p>
-    <textarea data-k="w11-b4" aria-label="board"></textarea>
   </section>
 
-  <!-- 7 · YOUR PLAN -->
   <section class="panel">
     <div class="kick">Your plan · Notebook Entry 11a</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Plan how you'll recruit.</h2>
@@ -128,34 +114,20 @@
     </div>
   </section>
 
-  <!-- 8 · LAUNCH -->
   <section class="panel">
     <h2 class="q">Phones out. If your form is ready, launch it right now.</h2>
-    <p class="sub">Post the link, make the QR code, get real responses coming in before you leave.</p>
+    <p class="sub">Post the link, make the QR code, get actual responses coming in before you leave.</p>
   </section>
 
-  <!-- 9 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">This is the part no source, no book, no AI can do for you.</h1>
     <div class="idea">Thursday: keep collecting, keep it clean, back it up. Just gather.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

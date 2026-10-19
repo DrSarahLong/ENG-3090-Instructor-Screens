@@ -50,22 +50,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 14</div>
     <h1>Revision Is Re-Seeing</h1>
     <div class="idea">Nobody's first draft is their best one. Today we re-see the whole thing.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"A solid first draft just needs a proofread. Tearing it apart to 're-see' it wastes time and usually makes it worse."</h2>
-    <textarea data-k="w14-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE 1 · the marked-up draft -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -74,12 +69,10 @@
       </figure>
       <div>
         <h2 class="q">Revision is not editing. What is the difference?</h2>
-        <textarea data-k="w14-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 3 · NAME IT · the three jobs -->
   <section class="panel">
     <div class="kick">Three jobs, done big to small</div>
     <div class="defs">
@@ -89,23 +82,19 @@
     </div>
   </section>
 
-  <!-- 4 · NAME IT · higher vs lower order -->
   <section class="panel">
     <div class="kick">Order of operations</div>
     <div class="defs">
       <div class="def"><h3>Higher-order concerns</h3><p>Focus, organization, evidence, and whether the draft actually answers its question. These come first.</p></div>
-      <div class="def"><h3>Lower-order concerns</h3><p>Grammar, citation format, page formatting. Real, but they come after the structure holds.</p></div>
+      <div class="def"><h3>Lower-order concerns</h3><p>Grammar, citation format, page formatting. These matter, but they come after the structure holds.</p></div>
     </div>
   </section>
 
-  <!-- 5 · QUESTION · why big before small -->
   <section class="panel">
     <h2 class="q">You have a paragraph you might cut. Should you fix its commas first?</h2>
     <p class="sub">Why or why not?</p>
-    <textarea data-k="w14-b2" aria-label="board"></textarea>
   </section>
 
-  <!-- 6 · BOARD · reverse outline, with a worked example -->
   <section class="panel">
     <div class="kick">The reverse outline</div>
     <div class="board">
@@ -118,7 +107,6 @@
     </div>
   </section>
 
-  <!-- 7 · PROMPTS · Entry 14a -->
   <section class="panel">
     <div class="kick">Notebook Entry 14a · on your own</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">X-ray your own draft.</h2>
@@ -129,35 +117,20 @@
     </div>
   </section>
 
-  <!-- 8 · QUESTION · share what the outline exposed -->
   <section class="panel">
     <h2 class="q">What did your reverse outline expose?</h2>
     <p class="sub">A missing recommendation, a repeated paragraph, a Discussion that is only one line. Every draft has gaps.</p>
-    <textarea data-k="w14-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 9 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Start with the big one.</h1>
     <div class="idea">Thursday: read it aloud, run Draft Check, log your revision. Want my eyes before the final? Submit a draft this week. It is optional, and it is the best deal in the course.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

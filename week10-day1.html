@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 10 · You're the Investigator Now</title>
+<title>Week 10 · The Question Clinic</title>
 <style>
   :root{
     --bg:#1a1214; --panel:#2b1d21; --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
@@ -31,152 +31,307 @@
   .def{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px; padding:20px 24px}
   .def h3{margin:0 0 8px; font-size:clamp(1.5rem,2.6vw,2rem); color:var(--accent)}
   .def p{margin:0; color:var(--ink); font-size:clamp(1.1rem,1.7vw,1.35rem)}
-  .def .eg{display:block; margin-top:10px; color:var(--soft); font-size:.92em}
   .board{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:24px 28px; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.5}
   .board .big{font-family:Georgia,serif; font-size:1.35em; color:var(--accent2); display:block; margin:14px 0}
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.92em}
   .prompts{counter-reset:p; font-size:clamp(1.35rem,2.5vw,2rem); line-height:1.4}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex; gap:18px}
-  .prompts .p::before{counter-increment:p; content:counter(p); color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex}
+  .prompts .p::before{counter-increment:p; content:counter(p); margin-right:18px; color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
   .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.85); border:1px solid var(--line); color:var(--soft); border-radius:8px; padding:7px 12px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
   .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
   .lb{position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain}
   .lb.on{display:flex}
+
+  /* quoted text under study */
+  .txt{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:12px; padding:26px 30px; font-family:Georgia,serif; font-size:clamp(1.3rem,2.5vw,2rem); line-height:1.45; margin:6px 0 22px}
+  .txt .src{display:block; margin-top:14px; font-family:-apple-system,system-ui,sans-serif; font-style:normal; font-size:.62em; color:var(--soft)}
+  /* comparison + codebook tables */
+  table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:clamp(.98rem,1.55vw,1.25rem)}
+  th,td{border:1px solid var(--line); padding:13px 16px; text-align:left; vertical-align:top}
+  th{background:rgba(235,143,153,.12); color:var(--accent); font-size:.8em; letter-spacing:.1em; text-transform:uppercase; font-weight:800}
+  td.code{font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--accent2); font-weight:700; white-space:nowrap}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.022)}
+  .tw{overflow-x:auto}
+  /* candidate code chips */
+  .chips{display:flex; flex-wrap:wrap; gap:14px; margin:10px 0 24px}
+  .chip{background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:12px 24px; font-size:clamp(1.05rem,1.8vw,1.45rem)}
+  /* corpus excerpt cards */
+  .exs{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:8px 0 20px}
+  @media (max-width:860px){ .exs{grid-template-columns:1fr} }
+  .exc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.28rem); line-height:1.45}
+  .exc .lab{display:block; font-family:Georgia,serif; font-size:1.5em; color:var(--gold); margin-bottom:6px; line-height:1}
+  /* fill-in template */
+  .tmpl{background:var(--field); border:1px dashed var(--accent); border-radius:12px; padding:22px 26px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(1.05rem,1.8vw,1.45rem); line-height:2}
+  .tmpl b{color:var(--accent2)}
+</style>
+<style>
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:6px 0 22px}
+  @media (max-width:860px){ .pair{grid-template-columns:1fr} }
+  .ba{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px 24px; font-size:clamp(1.05rem,1.75vw,1.4rem); line-height:1.45}
+  .ba .lab{display:block; font-size:.66em; letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:10px}
+  .ba.bad{border-left:5px solid var(--accent)} .ba.bad .lab{color:var(--accent)}
+  .ba.good{border-left:5px solid var(--accent2)} .ba.good .lab{color:var(--accent2)}
+  .ba q{font-family:Georgia,serif; font-style:italic; quotes:none}
+  .opts{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 0}
+  .opts span{background:var(--field); border:1px solid var(--line); border-radius:8px; padding:9px 16px; font-size:clamp(.95rem,1.5vw,1.2rem)}
+  .nm{color:var(--gold); font-family:Georgia,serif; font-size:1.15em}
+  .goals{list-style:none; padding:0; margin:10px 0 0}
+  .goals li{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px; padding:18px 24px; margin:14px 0; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.45; color:var(--ink); display:flex}
+  .goals li::before{content:"\2022"; color:var(--accent); font-weight:800; margin-right:16px; line-height:1}
+  .probe{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 20px; margin:12px 0; font-size:clamp(1rem,1.65vw,1.3rem); line-height:1.45}
+  .probe b{color:var(--accent2); font-family:Georgia,serif; font-size:1.18em; display:block; margin-bottom:5px}
 </style>
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
-    <div class="kick">Week 10 · Tuesday</div>
-    <h1>You're the Investigator Now</h1>
-    <div class="idea">You've been reading other people's research. Today you start making your own.</div>
+    <div class="kick">ENG 3090 &middot; Week 10 &middot; Tuesday</div>
+    <h1>The Question Clinic</h1>
+    <div class="idea">Today we stop reading other people's research and start conducting primary research of our own, to contribute to that scholarly conversation and close a piece of the gap in what remains to be studied about our topic.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"There's no such thing as a biased survey question. If people answer it, the data is valid."</h2>
-    <textarea data-k="w10-debate" aria-label="board"></textarea>
+    <div class="kick">What you'll walk out with</div>
+    <ul class="goals">
+      <li>The nine ways a question breaks, and what each one is called</li>
+      <li>The three methods, and what kind of evidence each one produces</li>
+      <li>The difference between a question that invites an answer and a question that supplies one</li>
+      <li>Three to five drafted questions of your own that survive the test</li>
+    </ul>
   </section>
 
-
-  <!-- 2 · OPENING QUESTION -->
   <section class="panel">
-    <h2 class="q">A bad question still looks like data. So what makes a survey question bad?</h2>
-    <p class="sub">On your own first, then we share as a class.</p>
-    <textarea data-k="w10-b1" aria-label="board"></textarea>
-  </section>
-
-  <!-- 3 · SCENE · the food-label study -->
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week10-day1-shelves.jpg" alt="Packaged food products lining supermarket shelves">
-        <figcaption>Supermarket shelves (Wikimedia Commons, CC BY-SA 4.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">You want to know if "natural" and "organic" claims fool shoppers. What would you ask them?</h2>
-        <p class="sub">Ask it badly and you learn nothing, no matter how many people answer.</p>
-        <textarea data-k="w10-b2" aria-label="board"></textarea>
-      </div>
+    <div class="kick">Coming up</div>
+    <div class="board">
+      <b>Thursday, in the module:</b> Designing Your Instrument. You build the full thing, scales and order and platform, and it becomes the instrument you run.
+      <span class="also">Week 11 asks who gets asked, which is recruiting and sampling. <b>P3 is due at the end of Week 12.</b> The questions you draft today produce the data P3 analyzes, so a broken question now is a broken result then.</span>
     </div>
   </section>
 
-  <!-- 4 · NAME IT · method choice -->
   <section class="panel">
-    <div class="kick">First decision · your method</div>
+    <div class="kick">The move</div>
+    <p class="sub" style="margin-bottom:20px">Our running topic is homelessness. Our broad question: how do people in our region understand the causes of and possible responses to homelessness? Two ways to ask it.</p>
+    <div class="pair">
+      <div class="ba bad"><span class="lab">Question A</span><q>Why do you think so many homeless people refuse to work?</q></div>
+      <div class="ba bad"><span class="lab">Question B</span><q>What factors do you think contribute to homelessness in our region?</q></div>
+    </div>
+    <div class="board">Question A has already named a cause, that people do not work, and already decided that not working is a choice. Whatever comes back is partly our own sentence returned to us. Question B lets the participant tell us what they think.
+      <span class="also">Everything else today is one skill: do not put your answer inside your question.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Before we write anything</div>
+    <h2 class="q">Last week's three principles, turned into three questions you can use.</h2>
+    <p class="sub">The Belmont Report, 1979, written by a federal commission after the Tuskegee syphilis study became public. It is the document American research ethics still runs on.</p>
     <div class="defs">
-      <div class="def"><h3>Survey</h3><p>Breadth. Countable answers from a lot of people. This is most of you.<span class="eg">"How much do you trust an 'all natural' label? 1 to 5."</span></p></div>
-      <div class="def"><h3>Interview</h3><p>Depth. The "why" behind a choice, in someone's own words. A focus group only if the group's reaction is the point.<span class="eg">"Walk me through the last time a label changed what you bought."</span></p></div>
+      <div class="def"><h3>Respect</h3><p>Are people choosing freely to participate, and do they understand what we are asking them to do?</p></div>
+      <div class="def"><h3>Beneficence</h3><p>Could our questions embarrass, stigmatize, distress, identify, or otherwise harm someone?</p></div>
+      <div class="def"><h3>Justice</h3><p>Why are we asking <i>these people</i> to supply the data?</p></div>
+    </div>
+    <div class="board">That third one lands differently on this topic. If we were interviewing people experiencing homelessness, we would have to think about power, vulnerability, compensation, privacy, trauma, and whether somebody might believe that access to services depended on talking to us.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">And one more principle</div>
+    <h2 class="q">If you do not need a piece of information to answer your research question, do not collect it.</h2>
+    <div class="board">A question worth asking is not the same as a question you are entitled to ask.
+      <div class="pair" style="margin:18px 0 6px">
+        <div class="ba good"><span class="lab">Worth asking, and we may</span><q>What do you think contributes to homelessness in this region?</q><br><br>It answers our research question, and nobody is exposed by answering it.</div>
+        <div class="ba bad"><span class="lab">Worth asking, and we may not</span><q>Have you ever been arrested?</q><br><br>A researcher might find that useful. Our question is about how people understand causes, so an arrest record tells us nothing we need and could put a participant at risk.</div>
+      </div></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Three methods</div>
+    <h2 class="q">These are not three interchangeable ways of asking questions.</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Method</th><th>Answers the question</th><th>Especially good for</th></tr></thead>
+      <tbody>
+        <tr><td class="code">SURVEY</td><td>How much? How many? How often? How strongly?</td><td>Patterns, frequencies, attitudes across more people</td></tr>
+        <tr><td class="code">INTERVIEW</td><td>How does someone understand, experience, or explain this?</td><td>Individual experience, explanation, meaning</td></tr>
+        <tr><td class="code">FOCUS GROUP</td><td>How do people work this out in front of each other?</td><td>Shared belief, disagreement, the words a community uses</td></tr>
+      </tbody>
+    </table></div>
+    <div class="board">A survey might tell you that 62% of respondents believe a shortage of affordable housing is a major cause of homelessness. It will not tell you why they believe it or what they mean by affordable.
+      <span class="also">The question is never which method is easiest. It is what kind of evidence my research question requires.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Pick one, or combine them</div>
+    <h2 class="q">You can run a survey, interviews, a focus group, or a combination.</h2>
+    <div class="board">Most of you will land on a <b>survey with some open-ended questions</b>, and that is a sound choice. It gets you counts from a decent number of people and quotes you can use in your write-up.
+      <span class="big">It also means you need both skill sets today.</span>
+      Your closed questions follow the survey rules we are about to go through. Your open-ended questions follow the interview rules in the second half, because an open-ended survey question is an interview question that nobody is there to follow up on.
+      <span class="also">Which makes the wording matter more, not less. You get one shot at it and no chance to say &ldquo;can you tell me more about that?&rdquo;</span></div>
+  </section>
+
+  <section class="panel title">
+    <div class="kick">Surveys</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Survey questions look easy. They are not.</h1>
+    <div class="idea">One clear, neutral question that your respondent can answer. Let's see how fast we can break that.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 1 &middot; Leading</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>Don't you agree that Boone should provide more shelter beds for people experiencing homelessness?</q></div>
+    <div class="board" style="margin:16px 0">It tells the respondent which answer we expect.</div>
+    <div class="ba good"><span class="lab">Better</span><q>Do you think the number of emergency shelter beds in Boone should increase, decrease, or stay about the same?</q></div>
+    <div class="ba good" style="margin-top:14px"><span class="lab">Another version</span><q>What, if anything, do you think local government should do in response to homelessness?</q></div>
+    <div class="board" style="margin-top:14px">Those two words, <b>if anything</b>, make &ldquo;nothing&rdquo; a legitimate answer.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 2 &middot; Loaded</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>How concerned are you about the growing homelessness crisis downtown?</q></div>
+    <div class="board" style="margin:16px 0">Three assumptions ride along: that it is growing, that it is a crisis, and that you ought to be concerned. All three might be correct. A survey question still cannot help itself to them.</div>
+    <div class="ba good"><span class="lab">Better</span><q>How concerned, if at all, are you about homelessness in downtown Boone?</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 3 &middot; Double-barreled</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>Do you think local governments should provide housing and mental-health services for people experiencing homelessness?</q></div>
+    <div class="board" style="margin:16px 0">That is two policies in one question. Somebody who supports housing and opposes the proposed program has no way to say so, so their yes means nothing reliable.</div>
+    <div class="ba good"><span class="lab">Better</span><q>Do you think local governments should provide additional housing assistance for people experiencing homelessness?</q></div>
+    <div class="ba good" style="margin-top:14px"><span class="lab">Another version</span>Then ask about mental-health services as a separate question.</div>
+    <div class="board" style="margin-top:14px">One question, one idea.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 4 &middot; Asking what they cannot know</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>How many people experiencing homelessness in Boone have a mental illness?</q></div>
+    <div class="board" style="margin:16px 0">Nobody filling out your survey knows that number. They have an impression, and an impression is a different thing. If perception is what you want, ask for perception.</div>
+    <div class="ba good"><span class="lab">Better</span><q>In your opinion, how important a factor is untreated mental illness in contributing to homelessness?</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 5 &middot; Absolutes</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>Do you agree that <b>everyone</b> experiencing homelessness should be offered permanent housing?</q></div>
+    <div class="board" style="margin:16px 0">Be suspicious of always, never, all, none, everyone. Sometimes the concept you are studying is that absolute and the word belongs. More often an absolute forces people into a position they do not hold, and then you report a disagreement you manufactured.</div>
+    <div class="ba good"><span class="lab">Better</span><q>Should permanent housing be offered to all people experiencing homelessness, to some, or to none?</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 6 &middot; Undefined terms</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>Do you think homelessness is a serious problem in our community?</q></div>
+    <div class="board" style="margin:16px 0">Community could mean campus, Boone, the High Country, or Tennessee. Homelessness could mean sleeping outside, a shelter, a motel paid week to week, or a friend's couch. Deciding what your concepts mean is called operationalization, and you have to do it before you can ask about them.</div>
+    <div class="ba good"><span class="lab">Better</span><q>For the purposes of this survey, experiencing homelessness includes people staying in shelters, living outdoors or in vehicles, or otherwise lacking a fixed nighttime residence. Do you think homelessness is a serious problem in Boone?</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 7 &middot; Answer choices that don't fit</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>How often do you encounter people experiencing homelessness? &nbsp; Very often / Often / Sometimes / Rarely</q></div>
+    <div class="board" style="margin:16px 0">There is no <b>Never</b>, and often no <b>I'm not sure</b>. A respondent who has never encountered anyone has to pick Rarely, which is a lie you built for them.</div>
+    <div class="ba good"><span class="lab">Better</span><q>How often do you encounter people experiencing homelessness? &nbsp; Very often / Often / Sometimes / Rarely / Never / I'm not sure</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 8 &middot; Overlapping categories</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>What is your age? &nbsp; 18&ndash;25 / 25&ndash;35 / 35&ndash;45 / 45+</q></div>
+    <div class="board" style="margin:16px 0">A 25-year-old belongs in two boxes. It looks like a small detail and it ruins the data, because you cannot tell which respondents landed where.</div>
+    <div class="ba good"><span class="lab">Better</span><q>What is your age? &nbsp; 18&ndash;24 / 25&ndash;34 / 35&ndash;44 / 45+</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Problem 9 &middot; Only one acceptable answer</div>
+    <div class="ba bad"><span class="lab">Broken</span><q>Do you believe people experiencing homelessness deserve to be treated with dignity?</q></div>
+    <div class="board" style="margin:16px 0">Almost everyone says yes, so all we measured is whether people know the acceptable answer. You get better data by asking about a choice or a trade-off, because a trade-off makes people spend something.</div>
+    <div class="ba good"><span class="lab">Better</span><q>Which of the following local responses to homelessness would you be most likely to support? &nbsp; Emergency shelter / Permanent supportive housing / Rental assistance / Substance-use treatment / Mental-health services / Increased policing / Another approach / None of these</q></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Order matters</div>
+    <h2 class="q">Opening a survey with <q>Have you personally experienced homelessness?</q> is an awfully intimate way to say hello.</h2>
+    <div class="board"><span class="big">Easy &rarr; specific &rarr; sensitive.</span>
+      Start broad, get narrower, and put sensitive personal and demographic questions late unless you have a methodological reason to do otherwise.
+      <span class="also">And give people <b>Prefer not to answer</b>. A respondent who has to lie or quit is a respondent you lost either way.</span></div>
+  </section>
+
+  <section class="panel title">
+    <div class="kick">Interviews, and open-ended survey questions</div>
+    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Here the logic flips.</h1>
+    <div class="idea">A closed survey question wants a controlled answer. An open question wants the person to talk. So the yes-or-no question, which was fine a moment ago, doesn't work.</div>
+    <div class="board" style="margin-top:24px"><b>For your project, go semi-structured.</b> Prepare core questions so everybody gets roughly the same major ones, then let yourself follow an answer that goes somewhere. Enough consistency to compare participants, without turning the interview into a survey read out loud.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The same question, three ways</div>
+    <div class="ba bad"><span class="lab">Closed</span><q>Do you think affordable housing contributes to homelessness?</q></div>
+    <div class="ba good" style="margin-top:14px"><span class="lab">Better</span><q>What role, if any, do you think housing costs play in homelessness in this region?</q></div>
+    <div class="ba good" style="margin-top:14px"><span class="lab">Better still</span><q>When you think about homelessness in this region, what causes or contributing factors come to mind?</q></div>
+    <div class="board" style="margin-top:18px">The third is better because it doesn't lead or suggest. The first hands them a yes-or-no. The second puts housing costs in their head before they answer. The third asks what comes to mind and then you follow where they go.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Write this one down</div>
+    <h2 class="q">&ldquo;Can you tell me more about that?&rdquo;</h2>
+    <p class="sub">That one will rescue you repeatedly. These four do the same job, and here is why none of them hands over an answer.</p>
+    <div class="probe"><b>What do you mean by that?</b>Asks them to define their own word. You have not offered a definition for them to agree with.</div>
+    <div class="probe"><b>Can you give me an example?</b>Asks for their evidence. You have not suggested what would count as one.</div>
+    <div class="probe"><b>What happened next?</b>Asks for sequence. There is no claim in it at all.</div>
+    <div class="probe"><b>Why do you think that?</b>Asks for their reasoning. Compare it to &ldquo;Is that because of housing costs?&rdquo;, which hands them the reason.</div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Do not interview yourself</div>
+    <div class="ba bad"><span class="lab">Students do this constantly</span><q>Do you think homelessness has gotten worse because housing has become so expensive?</q></div>
+    <div class="board" style="margin:16px 0">That is not an interview question. That is your opinion or argument with a question mark at the end.</div>
+    <div class="pair">
+      <div class="ba good"><span class="lab">Ask instead</span><q>Have you noticed any changes in homelessness in this area?</q></div>
+      <div class="ba good"><span class="lab">Then</span><q>What do you think might explain those changes?</q></div>
     </div>
   </section>
 
-  <!-- 5 · NAME IT · question types + scale -->
-  <section class="panel">
-    <div class="kick">Second decision · your question types</div>
-    <div class="defs">
-      <div class="def"><h3>Closed, to count</h3><p>Fixed choices you can add up and chart. Mostly these, or Week 12 hurts.<span class="eg">Multiple choice, yes/no, a rating scale.</span></p></div>
-      <div class="def"><h3>Open, to quote</h3><p>A blank space for their own words. A couple of these, for the good quotes.<span class="eg">"What does 'local' mean to you?"</span></p></div>
-      <div class="def"><h3>The scale rule</h3><p>Balance it, give it a middle, and label every point.<span class="eg">Strongly disagree · Disagree · Neutral · Agree · Strongly agree.</span></p></div>
-    </div>
+  <section class="panel title">
+    <div class="kick">An odd skill</div>
+    <h1 style="font-size:clamp(2.4rem,6vw,4.4rem)">Stop talking.</h1>
+    <div class="idea">They answer. They pause. Your instinct is to say &ldquo;Great, next question.&rdquo; Don't. Wait. People fill silence, and the second thing they say is frequently more interesting and in-depth than the first.</div>
   </section>
 
-  <!-- 6 · NAME IT · the six flaws -->
   <section class="panel">
-    <div class="kick">The six flaws · copy these down</div>
-    <div class="defs">
-      <div class="def"><h3>Leading</h3><p>Points to the answer you want.<span class="eg">"Don't you think misleading labels are wrong?"</span></p></div>
-      <div class="def"><h3>Double-barreled</h3><p>Two questions wearing one coat.<span class="eg">"Is the label accurate and fairly priced?"</span></p></div>
-      <div class="def"><h3>Loaded</h3><p>Buries an assumption they never agreed to.<span class="eg">"How much do greedy brands mislead you?"</span></p></div>
-      <div class="def"><h3>Vague</h3><p>No two people read it the same way.<span class="eg">"Do you buy healthy food often?"</span></p></div>
-      <div class="def"><h3>Jargon</h3><p>A word your reader may not know.<span class="eg">"Do you prefer regeneratively sourced goods?"</span></p></div>
-      <div class="def"><h3>Unbalanced scale</h3><p>The options tilt one way, or skip the middle.<span class="eg">Excellent · Very good · Good · Fair.</span></p></div>
-    </div>
+    <div class="kick">Focus groups</div>
+    <div class="ba good"><span class="lab">A question built for a group</span><q>When you hear people in this community talk about homelessness, what kinds of explanations do you hear?</q></div>
+    <div class="board" style="margin-top:18px">It asks about the community's talk rather than the participant's own position, so nobody has to defend a belief. People report what they have heard, and then they start correcting each other.
+      <span class="big">Mostly addiction. &mdash; I hear housing costs much more often. &mdash; Depends who you're talking to.</span>
+      <span class="also">That exchange is the data. You are facilitating a conversation among participants, not conducting five interviews at the same time.</span></div>
   </section>
 
-  <!-- 7 · QUESTION CLINIC -->
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week10-day1-questionnaire.png" alt="A completed paper questionnaire with checked boxes">
-        <figcaption>Questionnaire checklist (Wikimedia Commons, CC0 / public domain).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Clean, or needs work? If it's broken, which of the six, and how would you fix it?</h2>
-        <p class="sub">You judged eight food-label questions in the clinic. Let's compare.</p>
-        <textarea data-k="w10-b3" aria-label="board"></textarea>
-      </div>
-    </div>
+    <div class="kick">Two dangers</div>
+    <h2 class="q">One person talks for twenty minutes and everybody else nods. That is an interview with witnesses.</h2>
+    <div class="board" style="margin-bottom:16px">Your job as moderator is to distribute participation, and you can do it without embarrassing anybody.
+      <span class="big">&ldquo;We've heard a couple of perspectives. I'd like to hear from someone who hasn't spoken yet.&rdquo;</span>
+      <div class="chips" style="margin-top:4px"><span class="chip">Does anyone see this differently?</span><span class="chip">Is that how others understand it, or are there competing explanations?</span></div>
+      <span class="also">You are not manufacturing disagreement. You are making room for it.</span></div>
+    <div class="board"><b>The second is the more serious one.</b> In an interview you can protect what somebody tells you. In a focus group everyone hears everything. You can ask participants not to repeat it, but you cannot guarantee they won't, so some questions do not belong in a group at all.
+      <span class="big"><i>Tell the group about the circumstances that led you to become homeless.</i></span>
+      <span class="also">Which puts us back where the hour started. A question that would produce striking data is not therefore a question you should ask.</span></div>
   </section>
 
-  <!-- 8 · DRAFT YOUR OWN · notebook -->
   <section class="panel">
-    <div class="kick">Your study · Notebook Entry 10a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Draft 3 to 5 questions for your own topic.</h2>
-    <p class="sub">On your own. I'll come around.</p>
+    <div class="kick">Now you try it &middot; the clinic</div>
+    <p class="sub" style="margin-bottom:16px">For each one: clean, or broken? If broken, which of the nine problems is it, and how would you repair it?</p>
     <div class="prompts">
-      <div class="p">Pick your method: survey or interview. Say why it fits your question.</div>
-      <div class="p">Write 3 to 5 questions. Keep most of them closed, so you'll have something to count in Week 12.</div>
-      <div class="p">Run each one past the six flaws. Mark the one you're least sure about.</div>
+      <div class="p">Don't you think the city has ignored homelessness for too long?</div>
+      <div class="p">How often do you donate to or volunteer with organizations serving people experiencing homelessness?</div>
+      <div class="p">Do you support building more shelters and hiring more outreach workers?</div>
+      <div class="p">What percentage of people experiencing homelessness in our region are veterans?</div>
+      <div class="p">Would you say homelessness in our area is a problem?</div>
     </div>
   </section>
 
-  <!-- 9 · FIX ONE LIVE -->
   <section class="panel">
-    <h2 class="q">Read out one of your questions. Who can spot the flaw?</h2>
-    <p class="sub">Cheap reps. Most drafts hide one of the six.</p>
-    <textarea data-k="w10-b4" aria-label="board"></textarea>
+    <div class="kick">Your turn, on your own topic</div>
+    <div class="board">
+      <b>Open your Research Notebook and go to Entry 10a.</b> Draft three to five questions for your own project, then run each one against the nine problems.
+    </div>
   </section>
 
-  <!-- 10 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Garbage in, garbage out.</h1>
-    <div class="idea">Thursday: build the full instrument in order, pick your platform, and pilot it on one real person before you send it.</div>
+    <div class="idea">No analysis you run in Week 12 can repair a question you wrote badly in Week 10. Thursday you build the rest of the instrument around these questions.</div>
   </section>
 
-  <button class="clear" id="clear">Clear the boards</button>
-  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
-
-<script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
-  var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
-  document.querySelectorAll('figure img').forEach(function(img){
-    img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
-  });
-  lb.addEventListener('click', function(){ lb.classList.remove('on'); lbimg.src=''; });
-</script>
 </body>
 </html>

@@ -46,22 +46,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 16 · Tuesday · Last class</div>
     <h1>Presentations, Day 2 &amp; the Wrap</h1>
     <div class="idea">The last round of talks, then we close the loop on the whole semester.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"Most of what you learned this semester you'll never use again unless you become a professional researcher."</h2>
-    <textarea data-k="w16-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · SCENE + THE ARC -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -71,54 +66,35 @@
       <div class="board">
         <b>Same deal as Day 1</b>
         <span class="big">Five minutes each. We listen. We're generous.</span>
-        One thing that landed, one real question.
+        One thing that landed, one substantive question.
         <span class="also">Sixteen weeks ago you were readers of research. Today you're the people who made some.</span>
       </div>
     </div>
   </section>
 
-  <!-- 3 · BOARD: praise -->
   <section class="panel">
     <h2 class="q">One thing that landed.</h2>
     <p class="sub">What worked in the talk we just heard?</p>
-    <textarea data-k="w16-b1" aria-label="board"></textarea>
   </section>
 
-  <!-- 4 · BOARD: question -->
   <section class="panel">
-    <h2 class="q">One real question for the presenter.</h2>
-    <textarea data-k="w16-b2" aria-label="board"></textarea>
+    <h2 class="q">One substantive question for the presenter.</h2>
   </section>
 
-  <!-- 5 · WRAP REFLECTION -->
   <section class="panel">
     <h2 class="q">Where does this study go next for you?</h2>
     <p class="sub">A portfolio piece for a job or grad school. What will you carry into the next one?</p>
-    <textarea data-k="w16-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 6 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">That's the course.</h1>
     <div class="idea">Two things live in AsULearn: your final report and your notebook (Download everything). Check the "What's Due &amp; Where" guide if you're unsure. I'm proud of you.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });

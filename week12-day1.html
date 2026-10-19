@@ -46,22 +46,17 @@
 </head>
 <body>
 
-  <!-- 1 · TITLE -->
   <section class="panel title">
     <div class="kick">Week 12 · Tuesday</div>
     <h1>A Chart Can Mislead as Easily as a Food Label</h1>
     <div class="idea">You collected it. You're the only one who's seen it. Today it talks.</div>
   </section>
 
-  <!-- DEBATE OPENER -->
   <section class="panel">
     <div class="kick" style="color:var(--gold)">Debate this</div>
     <h2 class="q">"A chart just shows the numbers. If the data is real, the chart can't lie."</h2>
-    <textarea data-k="w12-debate" aria-label="board"></textarea>
   </section>
 
-
-  <!-- 2 · NAME IT -->
   <section class="panel">
     <div class="kick">Raw answers become findings in three moves</div>
     <div class="defs">
@@ -72,7 +67,6 @@
     </div>
   </section>
 
-  <!-- 3 · SCENE 1 -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -82,19 +76,15 @@
       <div>
         <h2 class="q">The same numbers can tell two different stories.</h2>
         <p class="sub">What makes this one lie, and how would you fix it?</p>
-        <textarea data-k="w12-b1" aria-label="board"></textarea>
       </div>
     </div>
   </section>
 
-  <!-- 4 · QUESTION -->
   <section class="panel">
     <h2 class="q">A chart bends the truth the same way a label does, usually by accident.</h2>
     <p class="sub">Where else have you seen a picture make a small thing look huge?</p>
-    <textarea data-k="w12-b2" aria-label="board"></textarea>
   </section>
 
-  <!-- 5 · SCENE 2 · takeaway -->
   <section class="panel">
     <div class="scene">
       <figure>
@@ -109,7 +99,6 @@
     </div>
   </section>
 
-  <!-- 6 · YOUR RESULTS -->
   <section class="panel">
     <div class="kick">Your results · Notebook Entry 12a</div>
     <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Turn your pile of answers into findings.</h2>
@@ -122,35 +111,20 @@
     </div>
   </section>
 
-  <!-- 7 · GUT CHECK -->
   <section class="panel">
     <h2 class="q">Say one finding in a single sentence, with the number.</h2>
     <p class="sub">Now: does your data actually earn that sentence?</p>
-    <textarea data-k="w12-b3" aria-label="board"></textarea>
   </section>
 
-  <!-- 8 · CLOSE -->
   <section class="panel title">
     <div class="kick">Close</div>
     <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Your study just answered its own question.</h1>
-    <div class="idea">Thursday: the write-up. Findings, a quote, honest limits. P3 is due Sunday.</div>
+    <div class="idea">Thursday: the write-up. Findings, a quote, stated limits. P3 is due Sunday.</div>
   </section>
-
-  <button class="clear" id="clear">Clear the boards</button>
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-  document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-    var key = 'e3_instr_' + ta.dataset.k;
-    try{ var v = localStorage.getItem(key); if(v){ ta.value = v; } }catch(e){}
-    ta.addEventListener('input', function(){ try{ localStorage.setItem(key, ta.value); }catch(e){} });
-  });
-  document.getElementById('clear').addEventListener('click', function(){
-    if(!confirm('Clear everything typed on the boards?')) return;
-    document.querySelectorAll('textarea[data-k]').forEach(function(ta){
-      try{ localStorage.removeItem('e3_instr_' + ta.dataset.k); }catch(e){} ta.value='';
-    });
-  });
+
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
