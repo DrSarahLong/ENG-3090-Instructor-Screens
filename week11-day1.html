@@ -42,89 +42,109 @@
   .lb{position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain}
   .lb.on{display:flex}
+  .nine{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:8px 0 18px}
+  @media (max-width:1000px){ .nine{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:680px){ .nine{grid-template-columns:1fr} }
+  .nine>div{background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--accent); border-radius:11px; padding:13px 15px}
+  .nine b{display:block; color:var(--accent); font-size:clamp(1rem,1.5vw,1.2rem); margin-bottom:5px}
+  .nine p{margin:0 0 6px; font-size:clamp(.95rem,1.35vw,1.1rem); line-height:1.38; color:var(--ink)}
+  .nine .eg{margin:0; color:var(--soft); font-style:italic; font-size:clamp(.9rem,1.25vw,1.02rem); line-height:1.35}
+  .steps{counter-reset:st; margin:6px 0 18px}
+  .steps .st{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent2); border-radius:12px; padding:16px 20px 16px 62px; margin:12px 0; position:relative; font-size:clamp(1.05rem,1.6vw,1.3rem); line-height:1.42}
+  .steps .st::before{counter-increment:st; content:counter(st); position:absolute; left:20px; top:14px; color:var(--accent2); font-weight:800; font-family:Georgia,serif; font-size:1.5em}
+  .steps .st b{color:var(--accent2)}
+  .steps .st .note{display:block; margin-top:7px; color:var(--soft); font-size:.9em}
+  .stop{background:rgba(232,181,103,.12); border:1px solid var(--gold); border-radius:12px; padding:18px 22px; margin:14px 0; font-size:clamp(1.1rem,1.7vw,1.35rem)}
+  .stop b{color:var(--gold)}
 </style>
 </head>
 <body>
 
   <section class="panel title">
-    <div class="kick">Week 11 · Tuesday</div>
-    <h1>Who You Ask Decides What You Find</h1>
-    <div class="idea">You built the tool. Today you go get the data.</div>
+    <div class="kick">Week 11 &middot; Tuesday</div>
+    <h1>Workshop</h1>
   </section>
 
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"A big enough sample beats a careful one every time. Get enough responses and who you asked stops mattering."</h2>
+    <div class="kick">The Workshop</div>
+    <h2 class="q">A working session, not a lecture.</h2>
   </section>
 
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week11-day1-farmers-market.jpg" alt="A shopper buying produce from a vendor at an outdoor farmers' market">
-        <figcaption>A farmers' market (Wikimedia Commons, CC BY-SA 3.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">You survey shoppers here about food labels. This is your sample.</h2>
-        <p class="sub">What can it tell you about all shoppers, and what can't it?</p>
-      </div>
+    <div class="kick">Review &middot; the nine</div>
+    <h2 class="q">Run every question you write against this list.</h2>
+    <div class="nine">
+      <div><b>1 &middot; Leading</b><p>It tells the respondent which answer you expect.</p><p class="eg">&ldquo;Don't you agree Boone should provide more shelter beds?&rdquo;</p></div>
+      <div><b>2 &middot; Loaded</b><p>It smuggles in assumptions the respondent never agreed to.</p><p class="eg">&ldquo;How concerned are you about the growing homelessness crisis?&rdquo;</p></div>
+      <div><b>3 &middot; Double-barreled</b><p>Two ideas in one question, so a single answer cannot cover both.</p><p class="eg">&ldquo;Should government provide housing <em>and</em> mental-health services?&rdquo;</p></div>
+      <div><b>4 &middot; Asking what they cannot know</b><p>It requests a fact the respondent has no access to, so you collect a guess.</p><p class="eg">&ldquo;How many people experiencing homelessness have a mental illness?&rdquo;</p></div>
+      <div><b>5 &middot; Absolutes</b><p>Always, never, all, everyone force people into positions they do not hold.</p><p class="eg">&ldquo;Should <em>everyone</em> be offered permanent housing?&rdquo;</p></div>
+      <div><b>6 &middot; Undefined terms</b><p>Key words mean different things to different respondents, so answers are not comparable.</p><p class="eg">&ldquo;Is homelessness a serious problem in our community?&rdquo;</p></div>
+      <div><b>7 &middot; Answer choices that don't fit</b><p>No option describes the respondent's actual situation, so they pick a near-lie.</p><p class="eg">Very often / Often / Sometimes / Rarely, with no <em>Never</em>.</p></div>
+      <div><b>8 &middot; Overlapping categories</b><p>A respondent belongs in two boxes and you cannot tell which they chose.</p><p class="eg">18&ndash;25 / 25&ndash;35 / 35&ndash;45 / 45+</p></div>
+      <div><b>9 &middot; Only one acceptable answer</b><p>Everyone gives the same reply, so you measured etiquette rather than opinion.</p><p class="eg">&ldquo;Do people experiencing homelessness deserve dignity?&rdquo;</p></div>
+    </div>
+    <p class="sub">Two words that fix a surprising number of these: <b>if anything</b>, and <b>if at all</b>. They make &ldquo;nothing&rdquo; and &ldquo;not at all&rdquo; legitimate answers.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">The work &middot; in this order</div>
+    <h2 class="q">What you are doing for the rest of class.</h2>
+    <div class="steps">
+      <div class="st"><b>Write your consent statement first.</b> Use the model consent language from the App State IRB office, adapted to your study. This is not a formality you dash off: it is the human-subjects ethics we covered in Week 9, and it is the first thing a participant reads.<span class="note">It needs to cover who you are and that this is coursework, what the study is about, how long it takes, that participation is voluntary and can stop at any time, what happens to the responses, and how to reach you.</span></div>
+
+      <div class="st"><b>Draft your questions, and balance the two kinds.</b> Closed-ended questions (multiple choice, scales, yes/no) are what you count, chart, and compare, so most of your instrument has to be closed or you will have nothing to visualize later. Open-ended questions are where people say something you did not anticipate, and they give you material to quote. Too few open questions and your report is all numbers with no voices in it. Too many and you have a pile of text you cannot analyze in the time you have.<span class="note">A workable shape for a ten-minute intercept survey: eight to ten closed questions, two open ones at the end. Order them so you ease into anything tough or sensitive. Start with the easy, factual, low-stakes items; put the questions people might hesitate over after they have already answered a few things comfortably.</span></div>
+
+      <div class="st"><b>Run every question against the nine.</b></div>
+
+      <div class="st"><b>Build it in the system you will actually distribute.</b> Google Forms is free with your App State account, works on any phone, and drops responses straight into a spreadsheet you can analyze. Put the consent statement in as the first screen. Then generate a QR code for the link, so people scan it and answer on their own phone instead of holding your iPad.<span class="note">You will get more responses that way, and you are not standing over someone while they type.</span></div>
+
+      <div class="st"><b>Bring me the finished form and I will take it on my phone or laptop.</b> Not the question list in a Google Doc. The working form, start to finish, exactly as a participant will see it, consent screen and all. That is the only way either of us catches what is actually broken.</div>
+
+      <div class="st"><b>Test it and confirm the data lands.</b></div>
     </div>
   </section>
 
   <section class="panel">
+    <div class="kick">The focus group &middot; building it</div>
+    <h2 class="q">You are writing a facilitator guide, not a questionnaire.</h2>
+    <div class="board">Five or six open questions in a deliberate sequence, each with two or three follow-up probes underneath it.
+      <span class="also">Budget the time before you write the questions. A 60-minute session with six questions is ten minutes each, and in practice the first question runs long and the last one gets three minutes. So order them by what you most need: the question you cannot leave without an answer to goes third or fourth, while people are warm and the clock is not yet against you. Open with something easy that gets every voice into the room once, because a person who has not spoken in the first ten minutes often does not speak at all.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The focus group &middot; consent</div>
+    <h2 class="q">Your consent form is different from everyone else's in this room.</h2>
+    <div class="board">The survey consent statements being written around you promise anonymity. <b>Yours cannot.</b>
+      <span class="also">Your form has to say that other participants will hear every answer, so responses are confidential from the outside but not private within the group. It needs ground rules participants agree to, including that what is said in the room stays there, which you ask for even though you cannot enforce it. And permission to record is <b>a separate question, asked before you start recording</b>, not a line buried in the paragraph they skimmed.</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The focus group &middot; running it</div>
+    <h2 class="q">Managing the room is most of the method.</h2>
     <div class="defs">
-      <div class="def"><h3>Sample &amp; population</h3><p>The population is everyone your question is about. The sample is the slice you actually reach, standing in for the whole.</p></div>
-      <div class="def"><h3>Convenience sampling</h3><p>Recruiting whoever is easy to reach. Common and fine, but easy-to-reach usually means people like you.</p></div>
-      <div class="def"><h3>Selection bias</h3><p>When your sampling method quietly favors one kind of person (the farmers'-market problem), or you pick who "looks right" (cherry-picking).</p></div>
-      <div class="def"><h3>Sample size</h3><p>Aim for a few dozen responses on a survey, or five to eight deep interviews. Enough to see a pattern instead of one anecdote.</p></div>
+      <div class="def"><h3>Recording</h3><p>Two devices, because one will fail. Test the audio where people will actually sit, not next to you. State the date and the group aloud at the start so the file identifies itself. Watch your battery.</p></div>
+      <div class="def"><h3>Dynamics to manage</h3><p>One person dominating; the group converging on whoever spoke first; deference to the person perceived as most senior; a quiet participant holding the view nobody else will say.</p></div>
+      <div class="def"><h3>Moves that work</h3><p>&ldquo;I'd like to hear from someone who hasn't spoken yet.&rdquo; &ldquo;Does anyone see it differently?&rdquo; And silence: count to five before you fill a pause. The answer that arrives after an uncomfortable gap is usually the one you came for.</p></div>
+      <div class="def"><h3>Nonverbals to log</h3><p>Who looks at whom before answering. Who goes quiet right after a particular person speaks. Nodding or head-shaking that never becomes speech. Someone leaning back and checking out. Note these as they happen, because the recording will not catch them.</p></div>
     </div>
+    <div class="stop"><b>Listen to the recording twice.</b> Once for what was said, and once for how: who hedged, who got interrupted, where the room went quiet, where several people started talking at once. The second pass is where a focus group earns its cost over a survey.</div>
   </section>
 
   <section class="panel">
-    <h2 class="q">If you only ask people like you, you studied your friends, not shoppers.</h2>
-    <p class="sub">Who are you missing, and how would you reach them?</p>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week11-day1-grocery.jpg" alt="A supermarket aisle lined with cartons and jugs of milk">
-        <figcaption>A supermarket aisle (Wikimedia Commons, CC BY-SA 3.0).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">Same question, a different crowd.</h2>
-        <p class="sub">Whose voices are in your study, and whose are missing?</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2 class="q">For each recruiting choice: does it represent the question, is it too narrow, or does it cross a line?</h2>
-    <p class="sub">And which bias is at work?</p>
-  </section>
-
-  <section class="panel">
-    <div class="kick">Your plan · Notebook Entry 11a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Plan how you'll recruit.</h2>
-    <p class="sub">On your own first, then we share as a class.</p>
-    <div class="prompts">
-      <div class="p">Your population: who are you actually trying to speak for?</div>
-      <div class="p">Your channels: where and how will you recruit? Name two or three.</div>
-      <div class="p">One group you're likely to miss, and one concrete way to reach them.</div>
-      <div class="p">Your target number: a few dozen on a survey, or five to eight interviews.</div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2 class="q">Phones out. If your form is ready, launch it right now.</h2>
-    <p class="sub">Post the link, make the QR code, get actual responses coming in before you leave.</p>
+    <div class="kick">Before you pack up</div>
+    <h2 class="q">Sketch where, when, and who.</h2>
+    <p class="sub">A first pass, not a final plan: which building, which days, what times, and roughly how many responses you are aiming for. You will firm this up Thursday when we do recruitment properly, and it is much easier to revise a plan than to invent one.</p>
+    <div class="stop"><b>While you sketch,</b> think about what time of day gets you a crowd that is not your own friend group. The 8 a.m. crowd and the 9 p.m. crowd are not the same people.</div>
   </section>
 
   <section class="panel title">
     <div class="kick">Close</div>
-    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">This is the part no source, no book, no AI can do for you.</h1>
-    <div class="idea">Thursday: keep collecting, keep it clean, back it up. Just gather.</div>
+    <h1 style="font-size:clamp(2rem,5vw,3.6rem)">Walk out with a working instrument.</h1>
+    <div class="idea">Thursday you decide who you are asking and how you will reach them. Then you launch.</div>
   </section>
-  <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
+
+<div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
 
