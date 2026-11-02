@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 12 · Analyze &amp; Visualize</title>
+<title>ENG 3090 · Week 12 · Making the Data Visible</title>
 <style>
   :root{
     --bg:#1a1214; --panel:#2b1d21; --ink:#f6ece9; --soft:#c6a9ae; --line:#433035;
@@ -35,96 +35,267 @@
   .board .big{font-family:Georgia,serif; font-size:1.35em; color:var(--accent2); display:block; margin:14px 0}
   .board .also{display:block; margin-top:16px; color:var(--soft); font-size:.92em}
   .prompts{counter-reset:p; font-size:clamp(1.35rem,2.5vw,2rem); line-height:1.4}
-  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:14px 0; display:flex; gap:18px}
-  .prompts .p::before{counter-increment:p; content:counter(p); color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
+  .prompts .p{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px 18px calc(22px + 1.5em); margin:14px 0; position:relative}
+  .prompts .p::before{counter-increment:p; content:counter(p); position:absolute; left:20px; top:18px; color:var(--accent); font-weight:800; font-family:Georgia,serif; font-size:1.4em; line-height:1}
   .clear{position:fixed; bottom:16px; right:16px; z-index:40; background:rgba(43,29,33,.85); border:1px solid var(--line); color:var(--soft); border-radius:8px; padding:7px 12px; font:inherit; font-size:.8rem; cursor:pointer; opacity:.55}
   .clear:hover{opacity:1; border-color:var(--accent); color:var(--accent)}
+  .tbl{width:100%; border-collapse:collapse; margin:10px 0 4px; font-size:clamp(1rem,1.7vw,1.4rem)}
+  .tbl th,.tbl td{border:1px solid var(--line); padding:13px 16px; text-align:left; vertical-align:top}
+  .tbl th{background:var(--panel); color:var(--accent); font-size:.8em; letter-spacing:.1em; text-transform:uppercase}
+  .tbl td b{color:var(--accent)}
+  .tbl tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+  .bars{display:flex; gap:46px; align-items:flex-end; justify-content:center; margin:18px 0 6px; flex-wrap:wrap}
+  .bars .col{display:flex; flex-direction:column; align-items:center; gap:10px}
+  .bars .plot{display:flex; gap:22px; align-items:flex-end; height:34vh; padding:0 14px 0 10px; border-left:3px solid var(--line); border-bottom:3px solid var(--line)}
+  .bars .bar{width:72px; background:linear-gradient(180deg,var(--accent),var(--accent-deep,#8c2f39)); border-radius:5px 5px 0 0; position:relative}
+  .bars .bar span{position:absolute; top:-1.7em; left:0; right:0; text-align:center; font-weight:800; font-size:.62em; color:var(--ink)}
+  .bars .axlab{font-size:.6em; color:var(--soft,#bbb); letter-spacing:.08em; text-transform:uppercase; font-weight:700}
+  .bars .cap{font-size:.62em; color:var(--soft,#bbb); text-align:center; max-width:17em; line-height:1.4}
+  .four{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:14px 0}
+  @media (max-width:860px){ .four{grid-template-columns:1fr 1fr} }
+  .four>div{background:var(--panel); border:1px solid var(--line); border-top:4px solid var(--accent); border-radius:13px; padding:15px 17px}
+  .four h4{margin:0 0 7px; color:var(--accent); font-size:clamp(1rem,1.7vw,1.35rem); letter-spacing:.06em}
+  .four p{margin:0; font-size:clamp(.92rem,1.4vw,1.1rem); line-height:1.42; color:var(--ink)}
+  .flow{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:16px 0; font-size:clamp(1rem,1.7vw,1.4rem)}
+  .flow .st{background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:9px 20px; font-weight:700; color:var(--accent)}
+  .flow .ar{color:var(--soft,#bbb); font-weight:700}
   .lb{position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center; justify-content:center; z-index:100; cursor:zoom-out}
   .lb img{max-width:96vw; max-height:96vh; object-fit:contain}
   .lb.on{display:flex}
+
+  /* quoted text under study */
+  .txt{background:var(--field); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:12px; padding:26px 30px; font-family:Georgia,serif; font-size:clamp(1.3rem,2.5vw,2rem); line-height:1.45; margin:6px 0 22px}
+  .txt .src{display:block; margin-top:14px; font-family:-apple-system,system-ui,sans-serif; font-style:normal; font-size:.62em; color:var(--soft)}
+  /* comparison + codebook tables */
+  table{width:100%; border-collapse:collapse; margin:6px 0 18px; font-size:clamp(.98rem,1.55vw,1.25rem)}
+  th,td{border:1px solid var(--line); padding:13px 16px; text-align:left; vertical-align:top}
+  th{background:rgba(235,143,153,.12); color:var(--accent); font-size:.8em; letter-spacing:.1em; text-transform:uppercase; font-weight:800}
+  td.code{font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--accent2); font-weight:700; white-space:nowrap}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.022)}
+  .tw{overflow-x:auto}
+  /* candidate code chips */
+  .chips{display:flex; flex-wrap:wrap; gap:14px; margin:10px 0 24px}
+  .chip{background:var(--panel); border:1px solid var(--line); border-radius:999px; padding:12px 24px; font-size:clamp(1.05rem,1.8vw,1.45rem)}
+  /* corpus excerpt cards */
+  .exs{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:8px 0 20px}
+  @media (max-width:860px){ .exs{grid-template-columns:1fr} }
+  .exc{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 22px; font-size:clamp(1rem,1.6vw,1.28rem); line-height:1.45}
+  .exc .lab{display:block; font-family:Georgia,serif; font-size:1.5em; color:var(--gold); margin-bottom:6px; line-height:1}
+  /* fill-in template */
+  .tmpl{background:var(--field); border:1px dashed var(--accent); border-radius:12px; padding:22px 26px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(1.05rem,1.8vw,1.45rem); line-height:2}
+  .tmpl b{color:var(--accent2)}
+</style>
+<style>
+  .pair{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:6px 0 22px}
+  @media (max-width:860px){ .pair{grid-template-columns:1fr} }
+  .ba{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px 24px; font-size:clamp(1.05rem,1.75vw,1.4rem); line-height:1.45}
+  .ba .lab{display:block; font-size:.66em; letter-spacing:.14em; text-transform:uppercase; font-weight:800; margin-bottom:10px}
+  .ba.bad{border-left:5px solid var(--accent)} .ba.bad .lab{color:var(--accent)}
+  .ba.good{border-left:5px solid var(--accent2)} .ba.good .lab{color:var(--accent2)}
+  .ba q{font-family:Georgia,serif; font-style:italic; quotes:none}
+  .opts{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 0}
+  .opts span{background:var(--field); border:1px solid var(--line); border-radius:8px; padding:9px 16px; font-size:clamp(.95rem,1.5vw,1.2rem)}
+  .nm{color:var(--gold); font-family:Georgia,serif; font-size:1.15em}
+  .goals{list-style:none; padding:0; margin:10px 0 0}
+  .goals li{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:12px; padding:18px 24px; margin:14px 0; font-size:clamp(1.2rem,2.1vw,1.6rem); line-height:1.45; color:var(--ink); display:flex}
+  .goals li::before{content:"\2022"; color:var(--accent); font-weight:800; margin-right:16px; line-height:1}
+  .probe{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 20px; margin:12px 0; font-size:clamp(1rem,1.65vw,1.3rem); line-height:1.45}
+  .probe b{color:var(--accent2); font-family:Georgia,serif; font-size:1.18em; display:block; margin-bottom:5px}
 </style>
 </head>
 <body>
 
   <section class="panel title">
-    <div class="kick">Week 12 · Tuesday</div>
-    <h1>A Chart Can Mislead as Easily as a Food Label</h1>
-    <div class="idea">You collected it. You're the only one who's seen it. Today it talks.</div>
+    <div class="kick">ENG 3090 &middot; Week 12 &middot; Tuesday</div>
+    <h1>Can a graph be technically accurate and still be misleading?</h1>
+    <div class="idea">You are about to turn other people's answers into pictures. That is a kind of power, and it is the last place in this course where you can still be unfair to your participants without meaning to be.</div>
   </section>
 
   <section class="panel">
-    <div class="kick" style="color:var(--gold)">Debate this</div>
-    <h2 class="q">"A chart just shows the numbers. If the data is real, the chart can't lie."</h2>
+    <div class="kick">What you'll walk out with</div>
+    <ul class="goals">
+      <li>Four ethical rules for reporting data you collected yourself</li>
+      <li>What a visualization does that a number cannot, and what it therefore owes the reader</li>
+      <li>A short, usable answer to &ldquo;which graph do I use?&rdquo;</li>
+      <li>The four-step move that turns two kinds of evidence into one finding</li>
+    </ul>
   </section>
 
   <section class="panel">
-    <div class="kick">Raw answers become findings in three moves</div>
-    <div class="defs">
-      <div class="def"><h3>Count</h3><p>Build a frequency table. How many people gave each answer? (COUNTIF does it in Sheets.)</p></div>
-      <div class="def"><h3>Describe</h3><p>Three numbers: N (how many), the percentage, and the mode (most common answer). Careful averaging a Likert scale.</p></div>
-      <div class="def"><h3>Picture</h3><p>Bar chart for categories. Pie only for a few parts of one whole. Match the chart to the data.</p></div>
-      <div class="def"><h3>Start at zero</h3><p>Begin the bars at zero and the picture can't lie. Cut the axis and small gaps look huge.</p></div>
+    <div class="kick">Coming up</div>
+    <div class="board">
+      <b>P3 is due Sunday, November 8, by 11:59 p.m.</b>
+      <span class="also">Thursday's module builds the Results architecture with you: what goes in Results versus Discussion, how to integrate your open-ended responses, and a planning workshop you can run before all your data is in. Today is the part that is faster to do out loud, together.</span>
     </div>
   </section>
 
   <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week12-day1-misleading-chart.png" alt="A bar graph with a truncated y-axis making a small difference look large">
-        <figcaption>Truncated-axis bar graph (Wikimedia Commons, CC0 / public domain).</figcaption>
-      </figure>
-      <div>
-        <h2 class="q">The same numbers can tell two different stories.</h2>
-        <p class="sub">What makes this one lie, and how would you fix it?</p>
+    <div class="kick gold">Look at this first</div>
+    <h2 class="q">Both charts use the same two numbers. What is different?</h2>
+    <div class="bars">
+      <div class="col">
+        <div class="plot" style="height:30vh">
+          <div class="bar" style="height:14%"><span>51%</span></div>
+          <div class="bar" style="height:90%"><span>55%</span></div>
+        </div>
+        <div class="axlab">Chart A</div>
+        <div class="cap">Support for Policy A and Policy B</div>
+      </div>
+      <div class="col">
+        <div class="plot" style="height:30vh">
+          <div class="bar" style="height:85%"><span>51%</span></div>
+          <div class="bar" style="height:92%"><span>55%</span></div>
+        </div>
+        <div class="axlab">Chart B</div>
+        <div class="cap">Support for Policy A and Policy B</div>
       </div>
     </div>
+    <p class="sub">Neither chart contains a false number. Which one would you rather have published about your research?</p>
   </section>
 
   <section class="panel">
-    <h2 class="q">A chart bends the truth the same way a label does, usually by accident.</h2>
-    <p class="sub">Where else have you seen a picture make a small thing look huge?</p>
-  </section>
-
-  <section class="panel">
-    <div class="scene">
-      <figure>
-        <img src="images/week12-day1-nutrition-label.png" alt="An FDA Nutrition Facts food label">
-        <figcaption>FDA Nutrition Facts label (Wikimedia Commons, public domain, U.S. federal government).</figcaption>
-      </figure>
-      <div class="board">
-        <b>A label and a chart mislead the same way:</b> by choosing what to show and what to hide.
-        <span class="big">What you put on the axis, and where you start it, is the argument.</span>
-        You've spent a semester on labels that mislead. Your own figure has to be the honest one.
-      </div>
+    <div class="kick">Here it is</div>
+    <h2 class="q">Chart A's vertical axis starts at 50%. Chart B's starts at zero.</h2>
+    <div class="board">
+      A four-point difference becomes a cliff, and every number on the chart is correct.
+      <span class="also">The length of a bar is what represents the quantity. Cut the bottom off the axis and the lengths stop meaning what the eye assumes they mean. <b>A technically correct number can be visually dishonest.</b></span>
     </div>
   </section>
 
   <section class="panel">
-    <div class="kick">Your results · Notebook Entry 12a</div>
-    <h2 class="q" style="font-size:clamp(1.8rem,3.6vw,2.8rem)">Turn your pile of answers into findings.</h2>
-    <p class="sub">On your own first, then we share as a class.</p>
+    <div class="kick">Four rules</div>
+    <h2 class="q">Ethics did not end when you finished collecting data</h2>
     <div class="prompts">
-      <div class="p">Count: build a frequency table. How many gave each answer?</div>
-      <div class="p">Describe: your N, the percentages, the mode.</div>
-      <div class="p">Picture: pick the chart that fits, and start the axis at zero.</div>
-      <div class="p">Name two or three findings your data can actually carry.</div>
+      <div class="p"><b>Do not generalize beyond your sample.</b> &ldquo;Of the 32 respondents in this study&hellip;&rdquo; and not &ldquo;Americans believe&hellip;&rdquo; Your data can only speak for the people you actually reached.</div>
+      <div class="p"><b>Show the N you actually have.</b> With samples this size, &ldquo;18 of 27 respondents (67%)&rdquo; tells the truth that &ldquo;67%&rdquo; alone hides. Your reader deserves to know how many human beings are behind the percentage.</div>
+      <div class="p"><b>Do not visually exaggerate differences.</b> Bar charts start at zero. No truncated axes, no inconsistent intervals, no 3-D.</div>
+      <div class="p"><b>Do not cherry-pick.</b> Report the inconvenient results too, and do not pull the one dramatic open-ended response and let it stand for everybody.</div>
     </div>
   </section>
 
   <section class="panel">
-    <h2 class="q">Say one finding in a single sentence, with the number.</h2>
-    <p class="sub">Now: does your data actually earn that sentence?</p>
+    <div class="kick gold">Watch</div>
+    <h2 class="q">Chris Jordan, &ldquo;Turning Powerful Stats into Art&rdquo;</h2>
+    <p class="sub" style="margin-bottom:22px">About 11 minutes. Jordan is an American photographic artist who began building images out of mass quantities of objects in the mid-2000s, after finding that the numbers in environmental reporting left him unable to picture anything.</p>
+    <div class="board">
+      <b>Write your answer on the worksheet as you watch:</b>
+      <span class="big">What does visualization make possible that the number alone cannot?</span>
+    </div>
+    <p class="sub"><a href="https://www.ted.com/talks/chris_jordan_turning_powerful_stats_into_art" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700">ted.com/talks/chris_jordan_turning_powerful_stats_into_art</a></p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Discuss</div>
+    <h2 class="q">So what happened to the number?</h2>
+    <p class="sub">Jordan did not change a single figure. What did he change?</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Here it is</div>
+    <h2 class="q">He changed its scale, its form, and whether a human being could comprehend it.</h2>
+    <div class="board">
+      Sometimes the problem with data is not that we lack it. The problem is that people are terrible at imagining scale. &ldquo;Two million&rdquo; is meaningful and almost nobody can picture two million objects.
+      <span class="also">So visualization performs a translation: it turns data into something a human perceptual system can take in. That is rhetorical power, and power carries responsibility. <b>Your job is not to make the data dramatic. Your job is to make the data visible.</b> Sometimes those are the same thing and sometimes they are not.</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Watch</div>
+    <h2 class="q">David McCandless, &ldquo;The Beauty of Data Visualization&rdquo;</h2>
+    <p class="sub" style="margin-bottom:22px">About 18 minutes. McCandless is a British data journalist and designer whose 2009 book <i>Information Is Beautiful</i> argued that design is not decoration on top of data but part of how data becomes knowledge.</p>
+    <div class="board">
+      <span class="big">What makes a visualization easy to understand?</span>
+      <span class="also">And: where does comparison reveal something the raw numbers do not?</span>
+    </div>
+    <p class="sub"><a href="https://www.ted.com/talks/david_mccandless_the_beauty_of_data_visualization" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700">ted.com/talks/david_mccandless_the_beauty_of_data_visualization</a></p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">The short answer</div>
+    <h2 class="q">Which graph do I use?</h2>
+    <table class="tbl">
+      <tr><th>You want to show&hellip;</th><th>Use&hellip;</th></tr>
+      <tr><td>Differences between categories</td><td><b>Bar chart</b></td></tr>
+      <tr><td>Responses across a scale, strongly disagree to strongly agree</td><td><b>Bar chart or stacked bar</b></td></tr>
+      <tr><td>Change over time</td><td><b>Line graph</b></td></tr>
+      <tr><td>Exact values, or a small amount of information</td><td><b>Table</b></td></tr>
+      <tr><td>Themes, quotations, qualitative findings</td><td><b>Text or a thematic table</b></td></tr>
+    </table>
+    <p class="sub">Almost all of you will use bar charts, and that is fine. There are no methodological sophistication points for finding a stranger graph.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">One anti-rule</div>
+    <h2 class="q">Avoid pie charts unless you have a simple part-to-whole relationship with only a few categories.</h2>
+    <p class="sub">A bar chart lets the eye compare values faster, which is usually the thing you wanted. And no 3-D pie charts.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick gold">Put these together</div>
+    <h2 class="q">What does the quotation add that the number does not?</h2>
+    <div class="pair">
+      <div class="ba good"><span class="lab">The number</span><q>21 of 30 respondents identified housing affordability as a major contributor to homelessness.</q></div>
+      <div class="ba good"><span class="lab">An open-ended response</span><q>People keep saying just get a job, but the jobs around here don't pay enough to cover rent.</q></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">Here it is</div>
+    <h2 class="q">The number tells you how common it was. The quotation tells you how respondents understood it.</h2>
+    <div class="flow">
+      <span class="st">Number</span><span class="ar">&rarr;</span>
+      <span class="st">Pattern</span><span class="ar">&rarr;</span>
+      <span class="st">Qualitative evidence</span><span class="ar">&rarr;</span>
+      <span class="st">Interpretation</span>
+    </div>
+    <div class="board">
+      <b>Written out:</b>
+      <span class="big">Twenty-one of 30 respondents identified housing affordability as an important contributor to homelessness. Open-ended responses frequently connected housing costs to local wages, with one respondent writing, &ldquo;&hellip;&rdquo; Together, these findings suggest that respondents understood affordability not simply as high rent, but as a mismatch between housing costs and income.</span>
+      <span class="also">That is mixed-methods integration. Four moves, one paragraph.</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="kick">For the focus-group project</div>
+    <h2 class="q">You do not need a graph.</h2>
+    <div class="pair">
+      <div class="ba bad"><span class="lab">Do not write</span><q>66.7% of participants believed housing was the biggest problem.</q></div>
+      <div class="ba good"><span class="lab">Write</span><q>Four of the six participants identified housing costs as a major concern.</q></div>
+    </div>
+    <p class="sub">Or, if the frequency is not the point: <b>Housing affordability emerged as one of the strongest themes in the discussion.</b> Then show the evidence. With a group this small, turning everything into percentages makes the report weaker, not more rigorous.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">For the focus-group project</div>
+    <h2 class="q">Organize Results around themes, and show the interaction.</h2>
+    <div class="prompts">
+      <div class="p"><b>Housing affordability.</b> Explain the pattern, quote a participant, then show whether somebody agreed, complicated it, or disagreed.</div>
+      <div class="p"><b>Stigma and personal responsibility.</b> Explain, quote, show the interaction.</div>
+      <div class="p"><b>Availability of local resources.</b> Explain, quote, show the disagreement or the consensus.</div>
+    </div>
+    <p class="sub">The exchange itself is a finding. One participant emphasizes individual choices, another answers with wages and rent, and the conversation moves. That cannot go in a pie chart, and it should not.</p>
+  </section>
+
+  <section class="panel">
+    <div class="kick">And if you want a display</div>
+    <h2 class="q">A thematic table is a legitimate data display.</h2>
+    <table class="tbl">
+      <tr><th>Theme</th><th>What participants emphasized</th></tr>
+      <tr><td><b>Housing affordability</b></td><td>Rent, wages, deposits</td></tr>
+      <tr><td><b>Stigma</b></td><td>Addiction, employment, personal responsibility</td></tr>
+      <tr><td><b>Local services</b></td><td>Shelter availability, treatment, transportation</td></tr>
+    </table>
   </section>
 
   <section class="panel title">
-    <div class="kick">Close</div>
-    <h1 style="font-size:clamp(2.2rem,5.5vw,4rem)">Your study just answered its own question.</h1>
-    <div class="idea">Thursday: the write-up. Findings, a quote, stated limits. P3 is due Sunday.</div>
+    <div class="kick">The line for everybody</div>
+    <h1 style="font-size:clamp(2rem,5vw,3.6rem)">A visualization should solve a communication problem.</h1>
+    <div class="idea">If there is no communication problem to solve, do not make one. Thursday's module builds your Results architecture and the planning workshop. <b>P3 is due Sunday by 11:59 p.m.</b></div>
   </section>
+
   <div class="lb" id="lb"><img id="lbimg" src="" alt=""></div>
 
 <script>
-
   var lb = document.getElementById('lb'), lbimg = document.getElementById('lbimg');
   document.querySelectorAll('figure img').forEach(function(img){
     img.addEventListener('click', function(){ lbimg.src = img.src; lb.classList.add('on'); });
